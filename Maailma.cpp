@@ -37,7 +37,7 @@ coordinates Maailma::getCoordinates(int maailmaID) {
       }
     }
   }
-}
+} //
 
 void Maailma::liiku (int ID) // muuttaa otuksen koordinaatteja
 {
