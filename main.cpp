@@ -66,7 +66,7 @@ int main(int argc, char* argv[]) {
   //  maailmanOtukset.at(0).omaJarjestysNro = 0; // huolehditaan otuksia luodessa viel‰ j‰rkk‰nrosta k‰sin, jotta otukset tiet‰‰ olla parittelematta itsens‰ kanssa. TODO fiksummin
     myfile << "Otus[" << 0 << "]: synnyin! Arvoilla (rgb) (255,0,0) (xy) (320,241) \n";                      // t‰ll‰ kierroksella syntyneit‰
 
-    for (int i=0+maailma.creatures_alive_sum; i<OTUKSIA_ALUSSA; i++) {
+    for (int i=0+maailma.creaturesAliveSum; i<OTUKSIA_ALUSSA; i++) {
       int x_syntyva = (317+3*i)%WIDTH;
       int y_syntyva = (237+3*i)%HEIGHT;
       if (maailma.creatures[x_syntyva][y_syntyva]==NULL) {
@@ -102,7 +102,7 @@ int main(int argc, char* argv[]) {
     cout << "SDL_Pollevent ohitettu" << endl;
 
     {   // Liikkumiset, latautumiset
-      for(int i=0; i<(maailma.creatures_alive_sum); i++) {
+      for(int i=0; i<(maailma.creaturesAliveSum); i++) {
         cout << "Liikutaan" << endl;
         maailma.liiku(i);    // maailman otukset, liikkukaa
         cout << "Liikuttu" << endl;

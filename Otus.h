@@ -14,21 +14,20 @@ class Otus//: public Maailma
 {
 public:
   float r, g, b;                      // fenotyyppi: n‰kyv‰, muuttuva ominaisuus
-  float r_gen, g_gen, b_gen;                  // genotyyppi: otukseen koodattu, muuttumaton ominaisuus
-  float r_askel, g_askel, b_askel;// paljonko relatessa palautetaan v‰ri‰ kerralla
-  //    int nopeus[2] { }; // suunta, vauhti
+  float r_gen, g_gen, b_gen;          // genotyyppi: otukseen koodattu, muuttumaton ominaisuus
+  float r_askel, g_askel, b_askel;    // paljonko relatessa palautetaan v‰ri‰ kerralla
+  //    int nopeus[2] { };            // suunta, vauhti
   coordinates myCoord;
   int maailma_ID;
   //    int ika = 0;
   //    bool laheiset[OTUKSIAMAX] = { };      // koitan koodata t‰n ulos
-  int himoittu;                        // jos asetettu, tahtoo paritella t‰m‰n j‰rkk‰nron kanssa
+//  int himoittu;                        // jos asetettu, tahtoo paritella t‰m‰n j‰rkk‰nron kanssa
 //  int omaJarjestysNro;
   int lisaantymiseenAikaa = ALKUUN_ILMAN;   // selibaatin kesto, askelia
 
   Otus (float r, float g, float b, int x, int y);   // m‰‰r‰‰ v‰ri
 
-/*  void tunnustele(vector<Otus>*);
-  Otus parittele(Otus);
+/*
 
   void horny();           // ilmaise tunnetilaasi v‰rj‰ytym‰ll‰ keltaiseksi
   void freak();           // ilmaise itse‰si v‰rj‰ytym‰ll‰ siniseksi

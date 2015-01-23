@@ -15,11 +15,13 @@ public:
     void addToIndex(Otus* syntyva);
     coordinates getCoordinates(int maailma_ID);
     void liiku (int ID);
+/*    void feelAround();
+    Otus* copulate(Otus* spouce);*/
     /*void findAllProcreators();        // katsoo l‰pi kaikki Otukset Maailmassa, kutsuu checkProcreatingAbility() kullekin
     Otus* checkProcreatingAbility();  // palauttaa ensimm‰isen parittelumahdollisuuden tai NULL*/
     vector<vector<Otus*> > creatures; // sis‰lt‰‰ pointterit kaikkiin Maailman Otuksiin (st‰ckiss‰). Solu t‰ynn‰ tai NULL.
-    int height_size, width_size;
-    int creatures_alive_sum;
+    int heightSize, widthSize;
+    int creaturesAliveSum;
 };
 
 #endif // MAAILMA_H

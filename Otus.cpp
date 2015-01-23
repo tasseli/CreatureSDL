@@ -8,7 +8,7 @@ Otus::Otus (float r_annettu, float g_annettu, float b_annettu, int x_annettu, in
   g = g_gen = g_annettu;
   b = b_gen = b_annettu;
   r_askel = g_askel = b_askel = 0;
-  himoittu = -1;
+//  himoittu = -1;
 }
 /*Otus::Otus (int x_annettu, int y_annettu) {
 
@@ -24,27 +24,6 @@ Otus::Otus (float r_annettu, float g_annettu, float b_annettu, int x_annettu, in
 Otus::Otus () {
 }*/
 /*
-void Otus::tunnustele (vector<Otus>* tunnusteltavatOtukset) // Ilpon jeesiä
-{
-
-  for (int i=0; i<tunnusteltavatOtukset->size(); i++) {
-    if (((x-tunnusteltavatOtukset->at(i).x)==0) && ((y-tunnusteltavatOtukset->at(i).y)==0))//&&(omaJarjestysNro!=i) // jos otus on samalla paikalla kuin mä
-    {
-      himoittu = i;   // valitaan viimeinen halun kohteeksi.
-    }
-  }
-}
-
-Otus Otus::parittele(Otus puoliso) {
-  if ((himoittu != (-1))&&(lisaantymiseenAikaa==0)&&(puoliso.lisaantymiseenAikaa==0)&&(omaJarjestysNro!=puoliso.omaJarjestysNro)) {
-    himoittu = -1;
-    horny();            // ilmaistaan himo hornyymällä. Otus on vasta siis löytänyt himoittavan tyypin, ja muuttuu keltaiseksi.
-    puoliso.horny();    // puolisokin on kuuma parittelusta. Vastaanottavan osapuolen palautumisaikaa ei kuitenkaan säädetä, kaksineuvoisuus <3
-    lisaantymiseenAikaa += PALAUDU;
-    return Otus((r_gen+puoliso.r_gen)/2, (g_gen+puoliso.g_gen)/2, (b_gen+puoliso.b_gen)/2, x, y);
-  }
-  else return Otus(650,490);
-}
 
 void Otus::horny() { // muututaan keltaiseksi (Otuksien syntyvärit on kirjoittaessani punasävyisiä)
   r =255;
