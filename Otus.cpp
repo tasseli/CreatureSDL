@@ -1,5 +1,7 @@
 #include "Otus.h"
 
+int Otus::birthCounter = 0; // staticin alustus! Ei classiin.
+
 Otus::Otus (float r_annettu, float g_annettu, float b_annettu, int x_annettu, int y_annettu) {
 //    _x = xera; syntaksi jotenkin vähän eri... g
   myCoord.x = x_annettu;
@@ -8,7 +10,7 @@ Otus::Otus (float r_annettu, float g_annettu, float b_annettu, int x_annettu, in
   g = g_gen = g_annettu;
   b = b_gen = b_annettu;
   r_askel = g_askel = b_askel = 0;
-//  himoittu = -1;
+  birthNumber = birthCounter++;
 }
 /*Otus::Otus (int x_annettu, int y_annettu) {
 

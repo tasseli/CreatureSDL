@@ -16,6 +16,8 @@ const short ALKUUN_ILMAN    = 30   ;   // mink‰ verran otukset on lis‰‰ntym‰tt‰ 
 struct coordinates {
   int x;
   int y;
+  bool operator==(const coordinates& that) const { return x == that.x && y == that.y; }
+  bool operator!=(const coordinates& that) const { return x != that.x || y != that.y; }
 };
 
 

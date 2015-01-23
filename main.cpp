@@ -59,7 +59,6 @@ int main(int argc, char* argv[]) {
 
     Otus* syntyva = NULL;
     maailma.creatures[320][241] = syntyva = new Otus(255,0,0,320,241);
-    maailma.addToIndex(maailma.creatures[syntyva->myCoord.x][syntyva->myCoord.y]);
     cout << "Otus luotu" << endl;
 
     syntyva = NULL;
@@ -72,7 +71,6 @@ int main(int argc, char* argv[]) {
       if (maailma.creatures[x_syntyva][y_syntyva]==NULL) {
         cout << "Oli NULL" << endl;
         maailma.creatures[x_syntyva][y_syntyva] = syntyva = new Otus((255-i)%256,(3+i)%256,0,x_syntyva,y_syntyva);     // lisäotukset syntyy kulmittain vierekkäin keskilinjalle punasävyisinä
-        maailma.addToIndex(maailma.creatures[x_syntyva][y_syntyva]);
         myfile << "Synnyin! Arvoilla (rgb) "<< syntyva->r << " " << syntyva->g << " " << syntyva->b <<" (xy) " << syntyva->myCoord.x << " " << syntyva->myCoord.y << " \n"; // tällä kierroksella syntyneitä
         cout << "Uus otus luotu" << endl;
       }

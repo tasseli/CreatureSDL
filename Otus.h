@@ -18,12 +18,13 @@ public:
   float r_askel, g_askel, b_askel;    // paljonko relatessa palautetaan v‰ri‰ kerralla
   //    int nopeus[2] { };            // suunta, vauhti
   coordinates myCoord;
-  int maailma_ID;
+  int birthNumber;
+  static int birthCounter;
+//  int lusted_ID;                        // jos asetettu, tahtoo paritella t‰m‰n j‰rkk‰nron kanssa
   //    int ika = 0;
   //    bool laheiset[OTUKSIAMAX] = { };      // koitan koodata t‰n ulos
-//  int himoittu;                        // jos asetettu, tahtoo paritella t‰m‰n j‰rkk‰nron kanssa
 //  int omaJarjestysNro;
-  int lisaantymiseenAikaa = ALKUUN_ILMAN;   // selibaatin kesto, askelia
+//  int lisaantymiseenAikaa = ALKUUN_ILMAN;   // selibaatin kesto, askelia
 
   Otus (float r, float g, float b, int x, int y);   // m‰‰r‰‰ v‰ri
 
