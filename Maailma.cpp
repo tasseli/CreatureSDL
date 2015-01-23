@@ -72,17 +72,10 @@ coordinates Maailma::findEmptyNeighbor(coordinates toThis) {
 }
 
 coordinates Maailma::getCoords(int birthNumber_) {
-  for(int j = 0; j < heightSize; j++) {
-    for(int i = 0; i < widthSize; i++) {
-//      cout << "getCoord: Kahden for-loopin sisällä";
-//      cout << "j: " << j << " i: " << i << "\n";
-//      cout << "Creatures.size() == " << creatures.size() << " x " << creatures.at(0).size() << "\n";
-      if (creatures[i][j] != NULL && creatures[i][j]->birthNumber == birthNumber_) {
-//        cout << "getCoord: if:n sisällä";
-        coordinates toBeReturned(i,j);
-//        cout << "getCoord: palautusvalmiina";
-        return toBeReturned;
-      }
+  for (int i=0; i<creaturesByBirth.size(); i++) {
+    if (creaturesByBirth[i] != NULL && creaturesByBirth[i]->birthNumber == birthNumber_) {
+      coordinates toBeReturned = creaturesByBirth[i]->myCoord;
+      return toBeReturned;
     }
   }
 } //
@@ -95,11 +88,11 @@ void Maailma::moveCreature (int ID) // muuttaa otuksen koordinaatteja
 
 //  coordinates directionWish = {-1,1};
   cout << "x: " << (location.x+1) << " y: " << (location.y+1) << "\n";
-   if (location.x+1 >= 0 && location.x+1 < creatures.size() &&
-      location.y+1 >= 0 && location.y+1 < creatures.at(0).size() &&
-      creatures[location.x+1][location.y+1]==NULL) { // Ilpolta
+  if (location.x+1 >= 0 && location.x+1 < widthSize && location.y+1 >= 0 && location.y+1 < heightSize && creatures[location.x+1][location.y+1]==NULL) {
+    cout << "Yritän liikkua!" << endl;
     creatures[location.x+1][location.y+1] = creatures[location.x][location.y];
-    delete creatures[location.x][location.y];
+    creatures[location.x][location.y] = NULL;
+    creatures[location.x+1][location.y+1]->myCoord = coordinates(location.x+1,location.y+1);
   }
 }
 
