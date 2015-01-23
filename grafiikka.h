@@ -3,6 +3,7 @@
 class Otus;
 
 #include <SDL/SDL.h>
+//#undef main // int argc, char* argv[] needed in main()
 #include <vector>
 
 #include "Maailma.h"

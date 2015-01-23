@@ -1,21 +1,14 @@
 Nyt: 
 - korjaa koodi toimivaksi
-  - petriDish maailmanOtusten tilalle
   - liikkuminen toimivaksi
   - parittelu, jos jumalat suovat
-- artikkelien luku
-- git
-  - tee bitbucket account
-    - Yksinkertaistaa parittelun
+    - nopeuta parittelu
       - Petrimalja skannataan kerran parittelualgoritmilla
         - Algoritmi etsiParittelevat() ja alimetodi voikoParitella()
       - Maailma tarjoaa maljan ja algoritmin metodissa 
       - Liikkuminen käyttää maljan dataa tietääkseen voiko
-	- 
 
 Ominaisuuksia: tarkoituksenmuk liike, ruoka, ruokailu, energia, kuolema, halut,
 Pitkän tähtäimen tavoitteita:
   Tekstitiedostojen opiskelu -> tiedoston lukeminen, randomin debuggaus, hiiren piilotus tai
   interaktio, pausenäppäin, uskottava liikealgoritmi, tunteet, genomi, fenotyypit
-
-bitbucket
