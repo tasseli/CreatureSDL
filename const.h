@@ -18,6 +18,7 @@ struct coordinates {
   int y;
   bool operator==(const coordinates& that) const { return x == that.x && y == that.y; }
   bool operator!=(const coordinates& that) const { return x != that.x || y != that.y; }
+  coordinates operator+ (const coordinates& that) const { return coordinates (x + that.x, y + that.y); }
   coordinates(int x_, int y_) {x = x_; y = y_;}
   coordinates() {}
 };

@@ -86,13 +86,14 @@ void Maailma::moveCreature (int ID) // muuttaa otuksen koordinaatteja
   coordinates location = getCoords(ID);
   cout << "Liiku: getCoord tehty";
 
-//  coordinates directionWish = {-1,1};
-  cout << "x: " << (location.x+1) << " y: " << (location.y+1) << "\n";
-  if (location.x+1 >= 0 && location.x+1 < widthSize && location.y+1 >= 0 && location.y+1 < heightSize && creatures[location.x+1][location.y+1]==NULL) {
+  coordinates directionWish(rand()%3-1,rand()%3-1);
+  coordinates wp = location+directionWish;
+  cout << "x: " << (wp.x) << " y: " << (wp.y) << "\n";
+  if (wp.x >= 0 && wp.x < widthSize && wp.y >= 0 && wp.y < heightSize && creatures[wp.x][wp.y]==NULL) {
     cout << "Yritän liikkua!" << endl;
-    creatures[location.x+1][location.y+1] = creatures[location.x][location.y];
+    creatures[wp.x][wp.y] = creatures[location.x][location.y];
     creatures[location.x][location.y] = NULL;
-    creatures[location.x+1][location.y+1]->myCoord = coordinates(location.x+1,location.y+1);
+    creatures[wp.x][wp.y]->myCoord = coordinates(wp.x,wp.y);
   }
 }
 
