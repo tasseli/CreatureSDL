@@ -93,7 +93,7 @@ int main(int argc, char* argv[]) {
 
     // Liikkumiset, latautumiset
     for(int i=0; i<maailma.creaturesByBirth.size(); i++) {
-      maailma.moveCreature(i);
+      maailma.moveCreature(maailma.creaturesByBirth[i]);
 /*    if (*maailmanOtukset[i].lisaantymiseenAikaa >0) {    // kohta saatte lis‰‰nty‰ taas
         maailmanOtukset[i].lisaantymiseenAikaa--;
         maailmanOtukset[i].relax();

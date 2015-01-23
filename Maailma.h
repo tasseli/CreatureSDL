@@ -19,7 +19,7 @@ public:
     bool nextTo(coordinates myCoords, coordinates herCoords);
     coordinates findEmptyNeighbor(coordinates toThis);
     coordinates getCoords(int birthNumber);
-    void moveCreature (int ID);
+    void moveCreature (Otus* moved);
 /*    int feelAround(int bithNumber_);*/  // returns the birthNumber of the first copulateable spouce-to-be near creature #birthNumber_
     Otus* feelAround(Otus* feeler);
 /*    Otus* copulate(Otus* spouce);

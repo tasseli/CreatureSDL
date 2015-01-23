@@ -47,9 +47,9 @@ bool Maailma::createCreature(rgb genome, coordinates whereTo) { // create a red 
 }
 
 bool Maailma::nextTo(coordinates myCoords, coordinates herCoords) {
-  if ((myCoords == herCoords) == false) {
-    if (myCoords.x+1 == herCoords.x || myCoords.x-1 == herCoords.x) {
-      if (myCoords.y+1 == herCoords.y || myCoords.y-1 == herCoords.y) {
+  if (myCoords != herCoords) {
+    if (myCoords.x+1 == herCoords.x || myCoords.x == herCoords.x || myCoords.x-1 == herCoords.x) {
+      if (myCoords.y+1 == herCoords.y || myCoords.y == herCoords.y || myCoords.y-1 == herCoords.y) {
         return true;
       }
     }
@@ -62,7 +62,7 @@ coordinates Maailma::findEmptyNeighbor(coordinates toThis) {
   for (int i=toThis.x-1; i<= toThis.x+1; ++i) {
     for (int j=toThis.y-1; j<= toThis.y+1; ++j) {
       if(toThis.x!=i||toThis.y!=j) {
-        if (creatures[i][j] != NULL) {
+        if (creatures[i][j] == NULL) {
           coordinates here(i,j);
           return here;
         }
@@ -80,11 +80,10 @@ coordinates Maailma::getCoords(int birthNumber_) {
   }
 } //
 
-void Maailma::moveCreature (int ID) // muuttaa otuksen koordinaatteja
+void Maailma::moveCreature (Otus* moved) // muuttaa otuksen koordinaatteja
 {
   cout << "Liiku: alku";
-  coordinates location = getCoords(ID);
-  cout << "Liiku: getCoord tehty";
+  coordinates location = moved->myCoord;
 
   coordinates directionWish(rand()%3-1,rand()%3-1);
   coordinates wp = location+directionWish;
@@ -111,8 +110,8 @@ void Maailma::moveCreature (int ID) // muuttaa otuksen koordinaatteja
   return -1;
 }*/
 
-Otus* Maailma::feelAround(Otus* feeler) {
-  for (int i=0; i<Otus::birthCounter; i++) {
+Otus* Maailma::feelAround(Otus* feeler) { // returns NULL if none around, else pointer to lusted
+  for (int i=0; i<creaturesByBirth.size(); i++) {
     if (i != feeler->birthNumber) {
       coordinates herCoords = getCoords(i);
       coordinates myCoords = feeler->myCoord;
@@ -133,8 +132,8 @@ Otus* Maailma::copulate(Otus* A, Otus* B) {
     return Otus((r_gen+puoliso.r_gen)/2, (g_gen+puoliso.g_gen)/2, (b_gen+puoliso.b_gen)/2, x, y);
   }
   else return Otus(650,490);
-}
-*/
+}*/
+
 /*
 void Maailma::findAllProcreators() {              // katsoo läpi kaikki Otukset Maailmassa, kutsuu checkProcreatingAbility() kullekin
 
