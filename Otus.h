@@ -21,7 +21,7 @@ public:
   int birthNumber;
   static int birthCounter;
   //    int ika = 0;
-//  int lisaantymiseenAikaa = ALKUUN_ILMAN;   // selibaatin kesto, askelia
+  int waitSex = ALKUUN_ILMAN;   // selibaatin kesto, askelia
 
   Otus (rgb RGBgenome_, coordinates whereTo);   // m‰‰r‰‰ v‰ri
 

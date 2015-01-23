@@ -94,10 +94,17 @@ int main(int argc, char* argv[]) {
     // Liikkumiset, latautumiset
     for(int i=0; i<maailma.creaturesByBirth.size(); i++) {
       maailma.moveCreature(maailma.creaturesByBirth[i]);
+      if(maailma.creaturesByBirth[i]->waitSex>=1) {
+        --maailma.creaturesByBirth[i]->waitSex;
+      }
 /*    if (*maailmanOtukset[i].lisaantymiseenAikaa >0) {    // kohta saatte lis‰‰nty‰ taas
         maailmanOtukset[i].lisaantymiseenAikaa--;
         maailmanOtukset[i].relax();
       }*/
+    }
+    int bz = maailma.creaturesByBirth.size();
+    for(int i=0; i<bz; i++) {
+      maailma.copulate(maailma.creaturesByBirth[i]);
     }
 
 

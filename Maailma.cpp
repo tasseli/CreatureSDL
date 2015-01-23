@@ -122,17 +122,18 @@ Otus* Maailma::feelAround(Otus* feeler) { // returns NULL if none around, else p
   }
   return NULL;
 }
-/*
-Otus* Maailma::copulate(Otus* A, Otus* B) {
-  int lusted = feelAround();
-  if (lusted != (-1)) {
+
+void Maailma::copulate(Otus* mommy) {
+  Otus* daddy = feelAround(mommy);
+  if (daddy != NULL && mommy->waitSex == 0) {
+    bool didIt = createCreature(mommy, daddy);
 //    horny();            // ilmaistaan himo hornyymällä. Otus on vasta siis löytänyt himoittavan tyypin, ja muuttuu keltaiseksi.
 //    puoliso.horny();    // puolisokin on kuuma parittelusta. Vastaanottavan osapuolen palautumisaikaa ei kuitenkaan säädetä, kaksineuvoisuus <3
-//    lisaantymiseenAikaa += PALAUDU;
-    return Otus((r_gen+puoliso.r_gen)/2, (g_gen+puoliso.g_gen)/2, (b_gen+puoliso.b_gen)/2, x, y);
+    mommy->waitSex += PALAUDU;
+//    myfile << "createCreature(suvullinen): " << didIt << endl;
   }
-  else return Otus(650,490);
-}*/
+//  myfile << "Ei löytynyt ketään :( " << endl;
+}
 
 /*
 void Maailma::findAllProcreators() {              // katsoo läpi kaikki Otukset Maailmassa, kutsuu checkProcreatingAbility() kullekin

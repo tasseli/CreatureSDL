@@ -22,8 +22,8 @@ public:
     void moveCreature (Otus* moved);
 /*    int feelAround(int bithNumber_);*/  // returns the birthNumber of the first copulateable spouce-to-be near creature #birthNumber_
     Otus* feelAround(Otus* feeler);
-/*    Otus* copulate(Otus* spouce);
-    */
+    void copulate(Otus* mother);
+
     /*void findAllProcreators();        // katsoo l‰pi kaikki Otukset Maailmassa, kutsuu checkProcreatingAbility() kullekin
     Otus* checkProcreatingAbility();  // palauttaa ensimm‰isen parittelumahdollisuuden tai NULL*/
     vector<vector<Otus*> > creatures; // sis‰lt‰‰ pointterit kaikkiin Maailman Otuksiin (st‰ckiss‰). Solu t‰ynn‰ tai NULL.
