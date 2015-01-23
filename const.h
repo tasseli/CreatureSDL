@@ -18,6 +18,18 @@ struct coordinates {
   int y;
   bool operator==(const coordinates& that) const { return x == that.x && y == that.y; }
   bool operator!=(const coordinates& that) const { return x != that.x || y != that.y; }
+  coordinates(int x_, int y_) {x = x_; y = y_;}
+  coordinates() {}
+};
+
+struct rgb {
+  int r;
+  int g;
+  int b;
+  bool operator==(const rgb& that) const { return r == that.r && g == that.g && b == that.b; }
+  bool operator!=(const rgb& that) const { return r != that.r || g != that.g || b != that.b; }
+  rgb(int r_, int g_, int b_) {r = r_; g = g_; b = b_;}
+  rgb() {}
 };
 
 

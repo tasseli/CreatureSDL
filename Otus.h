@@ -13,9 +13,9 @@ using namespace std;
 class Otus//: public Maailma
 {
 public:
-  float r, g, b;                      // fenotyyppi: n‰kyv‰, muuttuva ominaisuus
-  float r_gen, g_gen, b_gen;          // genotyyppi: otukseen koodattu, muuttumaton ominaisuus
-  float r_askel, g_askel, b_askel;    // paljonko relatessa palautetaan v‰ri‰ kerralla
+  rgb RGBfenotype;                    // fenotyyppi: n‰kyv‰, muuttuva ominaisuus
+  rgb RGBgenome;                      // genotyyppi: otukseen koodattu, muuttumaton ominaisuus
+  //float r_askel, g_askel, b_askel;    // paljonko relatessa palautetaan v‰ri‰ kerralla
   //    int nopeus[2] { };            // suunta, vauhti
   coordinates myCoord;
   int birthNumber;
@@ -26,10 +26,10 @@ public:
 //  int omaJarjestysNro;
 //  int lisaantymiseenAikaa = ALKUUN_ILMAN;   // selibaatin kesto, askelia
 
-  Otus (float r, float g, float b, int x, int y);   // m‰‰r‰‰ v‰ri
+  Otus (rgb RGBgenome_, coordinates whereTo);   // m‰‰r‰‰ v‰ri
 
+  short* outRGB();
 /*
-
   void horny();           // ilmaise tunnetilaasi v‰rj‰ytym‰ll‰ keltaiseksi
   void freak();           // ilmaise itse‰si v‰rj‰ytym‰ll‰ siniseksi
   void relax();           // relaa hieman, siirry innostuksesta kohti normaalitilaa

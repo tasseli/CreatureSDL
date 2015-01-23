@@ -15,10 +15,10 @@ using namespace std;
 
 //#include grafiikka.h
 
-void setPixel(SDL_Surface *s, int x, int y, int r, int g, int b) {
+void setPixel(SDL_Surface *s, coordinates coords, rgb color) {
   int *scr = (int*)s->pixels;
-  if ((x >= 0) && (x < s->w) && (y >= 0) && (y < s->h)) // SDL_Surface on constructi jolla on w ja h. Jos x ja y on nollien ja w:n ja h:n välissä eli Surfacen alueella..
-    scr[x + y*s->w] = SDL_MapRGB(s->format, r, g, b); // Red, Green, Blue   .. mappaa väri x:n ja y:n fiksusti määräämälle pixelille.
+  if ((coords.x >= 0) && (coords.x < s->w) && (coords.y >= 0) && (coords.y < s->h)) // SDL_Surface on constructi jolla on w ja h. Jos x ja y on nollien ja w:n ja h:n välissä eli Surfacen alueella..
+    scr[coords.x + coords.y*s->w] = SDL_MapRGB(s->format, color.r, color.g, color.b); // Red, Green, Blue   .. mappaa väri x:n ja y:n fiksusti määräämälle pixelille.
 }
 
 void drawScreen(SDL_Surface *petrimalja, Maailma& maailma) { // piirretään petrimalja, ja sitten joka otus vuorollaan sen päälle
@@ -30,7 +30,7 @@ void drawScreen(SDL_Surface *petrimalja, Maailma& maailma) { // piirretään petri
 
   for(y = (petrimalja->h-1); y > -1; y-- ) {// Alustetaan petrimalta, Otusten alusta eli screeni, valkoiseksi
     for( x = 0; x < petrimalja->w; x++ ) {
-      setPixel(petrimalja, x, y, 255, 255, 255);
+      setPixel(petrimalja, coordinates{x, y}, rgb{255, 255, 255});
     }
   }
 /*

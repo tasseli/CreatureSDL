@@ -2,14 +2,12 @@
 
 int Otus::birthCounter = 0; // staticin alustus! Ei classiin.
 
-Otus::Otus (float r_annettu, float g_annettu, float b_annettu, int x_annettu, int y_annettu) {
+Otus::Otus (rgb RGBgenome_, coordinates whereTo) {
 //    _x = xera; syntaksi jotenkin vähän eri... g
-  myCoord.x = x_annettu;
-  myCoord.y = y_annettu;
-  r = r_gen = r_annettu;
-  g = g_gen = g_annettu;
-  b = b_gen = b_annettu;
-  r_askel = g_askel = b_askel = 0;
+  myCoord.x = whereTo.x;
+  myCoord.y = whereTo.y;
+  RGBfenotype = RGBgenome = RGBgenome_;
+//  r_askel = g_askel = b_askel = 0;
   birthNumber = birthCounter++;
 }
 /*Otus::Otus (int x_annettu, int y_annettu) {
@@ -25,8 +23,12 @@ Otus::Otus (float r_annettu, float g_annettu, float b_annettu, int x_annettu, in
 /*
 Otus::Otus () {
 }*/
-/*
+short* Otus::outRGB() {
+  short rgb[3]{(short)RGBgenome.r, (short)RGBgenome.g, (short)RGBgenome.b};
+  return rgb;
+}
 
+/*
 void Otus::horny() { // muututaan keltaiseksi (Otuksien syntyvärit on kirjoittaessani punasävyisiä)
   r =255;
   g =255;

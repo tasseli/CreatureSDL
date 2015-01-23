@@ -57,25 +57,22 @@ int main(int argc, char* argv[]) {
     Maailma maailma(WIDTH,HEIGHT);               // petrimaljan data, sis. ison otuspointteritaulukon
     cout << "Maailma luotu" << endl;
 
-    Otus* syntyva = NULL;
-    maailma.creatures[320][241] = syntyva = new Otus(255,0,0,320,241);
-    cout << "Otus luotu" << endl;
+    coordinates to(320,241);
+    bool whatEv = maailma.createCreature(to);
+    cout << "Otus luotu: " << whatEv << endl;
 
-    syntyva = NULL;
-  //  maailmanOtukset.at(0).omaJarjestysNro = 0; // huolehditaan otuksia luodessa viel‰ j‰rkk‰nrosta k‰sin, jotta otukset tiet‰‰ olla parittelematta itsens‰ kanssa. TODO fiksummin
-    myfile << "Otus[" << 0 << "]: synnyin! Arvoilla (rgb) (255,0,0) (xy) (320,241) \n";                      // t‰ll‰ kierroksella syntyneit‰
+    myfile << "Otus[" << maailma.creaturesByBirth.size()-1 << "]: synnyin! Arvoilla (rgb) " << maailma.creaturesByBirth[0]->outRGB() << endl;                      // t‰ll‰ kierroksella syntyneit‰
 
-    for (int i=0+maailma.creaturesAliveSum; i<OTUKSIA_ALUSSA; i++) {
+    for (int i=maailma.creaturesByBirth.size(); i<OTUKSIA_ALUSSA; i++) {
       int x_syntyva = (317+3*i)%WIDTH;
       int y_syntyva = (237+3*i)%HEIGHT;
       if (maailma.creatures[x_syntyva][y_syntyva]==NULL) {
         cout << "Oli NULL" << endl;
-        maailma.creatures[x_syntyva][y_syntyva] = syntyva = new Otus((255-i)%256,(3+i)%256,0,x_syntyva,y_syntyva);     // lis‰otukset syntyy kulmittain vierekk‰in keskilinjalle punas‰vyisin‰
-        myfile << "Synnyin! Arvoilla (rgb) "<< syntyva->r << " " << syntyva->g << " " << syntyva->b <<" (xy) " << syntyva->myCoord.x << " " << syntyva->myCoord.y << " \n"; // t‰ll‰ kierroksella syntyneit‰
+        bool hmm = maailma.createCreature(rgb{(255-i)%256,(3+i)%256,0},coordinates{x_syntyva,y_syntyva});
+        // myfile << "mau";
         cout << "Uus otus luotu" << endl;
       }
   //    maailmanOtukset.at(i+1).omaJarjestysNro = i+1; // tiedet‰‰n et yks on tehty aiemmin
-      syntyva = NULL;
     }
 
   cout << "While-looppi alkamassa" << endl;
@@ -100,9 +97,8 @@ int main(int argc, char* argv[]) {
     cout << "SDL_Pollevent ohitettu" << endl;
 
     {   // Liikkumiset, latautumiset
-      for(int i=0; i<(maailma.creaturesAliveSum); i++) {
+      for(int i=0; i<maailma.creaturesByBirth.size(); i++) {
         cout << "Liikutaan" << endl;
-        maailma.liiku(i);    // maailman otukset, liikkukaa
         cout << "Liikuttu" << endl;
 
 /*        if (*maailmanOtukset[i].lisaantymiseenAikaa >0) {    // kohta saatte lis‰‰nty‰ taas
