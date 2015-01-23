@@ -3,28 +3,21 @@
 int Otus::birthCounter = 0; // staticin alustus! Ei classiin.
 
 Otus::Otus (rgb RGBgenome_, coordinates whereTo) {
-//    _x = xera; syntaksi jotenkin vähän eri... g
   myCoord.x = whereTo.x;
   myCoord.y = whereTo.y;
   RGBfenotype = RGBgenome = RGBgenome_;
-//  r_askel = g_askel = b_askel = 0;
+//  r_askel = g_askel = b_askel = 0;      // tulevat tarpeelliseks kun implementoidaan fenotyyppi
   birthNumber = birthCounter++;
 }
-/*Otus::Otus (int x_annettu, int y_annettu) {
 
-  r = r_gen = (Uint8)rand()%256; // arvotut värit.
-  g = g_gen = (Uint8)rand()%256;
-  b = b_gen = (Uint8)rand()%256;
-  x = x_annettu;
-  y = y_annettu;
-  r_askel = g_askel = b_askel = 0;
-  himoittu = -1;
-}*/
-/*
-Otus::Otus () {
-}*/
 short* Otus::outRGB() {
-  short rgb[3]{(short)RGBgenome.r, (short)RGBgenome.g, (short)RGBgenome.b};
+  short* rgb = new short[3];
+  rgb[0] = RGBgenome.r;
+  std::cout << "Otus.cpp: " << RGBgenome.r << rgb[0] ;
+  rgb[1] = RGBgenome.g;
+  std::cout << RGBgenome.g << rgb[1] ;
+  rgb[2] = RGBgenome.b;
+  std::cout << RGBgenome.b << rgb[2] << std::endl;
   return rgb;
 }
 
@@ -41,7 +34,7 @@ void Otus::freak() { // muututaan siniseksi (Otuksien syntyvärit on kirjoittaess
   b =255;
 }
 
-void Otus::relax() {
+void Otus::relax() {  // fenotyypin implementaatiota
   if (r!=r_gen) {
     r = kohtiOmaaVaria(r, r_gen, 'r');
   }
@@ -53,7 +46,7 @@ void Otus::relax() {
   }
 }
 
-float Otus::kohtiOmaaVaria(float vari, float normaalivari, char varinNimi) {
+float Otus::kohtiOmaaVaria(float vari, float normaalivari, char varinNimi) {  // fenotyypin implementaatiota
   if (abs(vari - normaalivari)<TARKKUUS) {
     return normaalivari;
   }
@@ -85,25 +78,3 @@ float Otus::kohtiOmaaVaria(float vari, float normaalivari, char varinNimi) {
 }
 */
 
-/*
-bool Otus::voikoLaskea () {
-  if (y < 1)
-    return 0;
-  else return 1;
-} // onko petrimaljassa tilaa liikkua alas
-bool Otus::voikoNousta () {
-  if (y > (HEIGHT-1))
-    return 0;
-  else return 1;
-} // voiko liikkua ylös
-bool Otus::voikoVasen ()  {
-  if (x < 1)
-    return 0;
-  else return 1;
-} // voiko liikkua vasemmalle
-bool Otus::voikoOikea ()  {
-  if (x > (WIDTH-1))
-    return 0;
-  else return 1;
-} // voiko liikkua oikealle
-*/

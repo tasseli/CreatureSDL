@@ -5,27 +5,21 @@
 #include "Otus.h"       // oma otukseni
 #include "grafiikka.h"  // esimerkkisivulta kopioitu ja muokattu grafiikkarutiini
 
-// basic file operations
 #include <iostream>
 #include <fstream>
-
-//#include <iostream>   // ei viel‰ tarvetta
-//#include <stdio.h>    // ei viel‰ tarvetta
-
 
 using namespace std;
 
 
 /*****
 
-// TODO k‰ytet‰‰n maailma.petriDishi‰ eik‰ maailmanOtuksia. <3
-
-  T‰ss‰ vaiheessa piirret‰‰n 640x480 -kokoinen valkoinen petrimalja. Sen keskelt‰ aloittaa OTUKSIA_ALUSSA:n mukainen m‰‰r‰ Otuksia,
+//
+  Tavoite: piirret‰‰n 640x480 -kokoinen valkoinen petrimalja. Sen keskelt‰ aloittaa OTUKSIA_ALUSSA:n mukainen m‰‰r‰ Otuksia,
   jotka ovat syntyess‰‰n punas‰vyisi‰. Otukset havainnoivat samalle kohdalle sattuneita lajitovereitaan, ja pyrkiv‰t parittelemaan
   vieh‰tt‰vimm‰n kanssa. Onnistunut lis‰‰ntyminen saa otuksen friikkaamaan (muuttumaan siniseksi), ja lis‰‰ntymiseen johtamaton
   parittelu (OTUKSIAMAXin tultua t‰yteen) tekee ne hornyiksi (keltaisiksi). V‰ri palautuu otuksen PALAUDU-keston aikana sen omaksi.
 
-  Otus perii v‰rins‰ v‰limuotona vanhemmiltaan.
+  Otus perii v‰rins‰ v‰limuotona vanhempiensa genomeista.
   Otuksella on v‰ri ja koordinaatit, ja se liikkuu ~satunnaisesti. Reunalla otus p‰‰tt‰‰ olla kulkematta maljan sein‰n yli.
   Mainissa vuoroin piirret‰‰n, liikutellaan, tunnustellaan ja paritellaan otuksia. '1' lopettaa simulaation.
 ****/
@@ -36,7 +30,7 @@ int main(int argc, char* argv[]) {
    // Logi, SDL init
     ofstream myfile;                // out-file-streamiasia
     myfile.open("otuslogi.txt");   // logataan kuulumisia kuten sijaintia
-    cout << "Avataan logi" << endl;
+    myfile << "Avataan logi" << endl;
 
     srand(time(0));                 // rand():in seedaus erolla nollakellonlyˆm‰‰n
     SDL_Surface *petrimalja;            // SDL:n k‰yttˆ‰, jota en tarkemmin ymm‰rr‰
@@ -45,69 +39,68 @@ int main(int argc, char* argv[]) {
     int keypress = 0;
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0) return 1;
-    cout << "tsekattiin mit‰ SDL_Init sano" << endl;
+    myfile << "tsekattiin mit‰ SDL_Init sano" << endl;
     if (!(petrimalja = SDL_SetVideoMode(WIDTH, HEIGHT, DEPTH, SDL_HWSURFACE))) {   //Asetettu Otus.h:ssa - mut mit‰h‰n: SDL_FULLSCREEN| tekee. Ahaa. Flagit tulee |:illa eroteltuina vikaks.
       SDL_Quit();
       return 1;
     }
-    cout << "tsekattiin mit‰ SDL_SetVideoMode sano" << endl;
+    myfile << "tsekattiin mit‰ SDL_SetVideoMode sano" << endl;
 
-// TODO k‰ytet‰‰n maailma.petriDishi‰ eik‰ maailmanOtuksia. <3
    // Otuksien alkusynty
     Maailma maailma(WIDTH,HEIGHT);               // petrimaljan data, sis. ison otuspointteritaulukon
-    cout << "Maailma luotu" << endl;
+    myfile << "Maailma luotu" << endl;
 
-    coordinates to(320,241);
+    coordinates to(320,241); // ekan otuksen luomiskohta
     bool whatEv = maailma.createCreature(to);
-    cout << "Otus luotu: " << whatEv << endl;
+    myfile << "Otus luotu: " << whatEv << endl;
+    myfile << "maailma.creaturesByBirthin koko 1: " << maailma.creaturesByBirth.size() << " maailma.creaturesByBirth[0]->myCoord.x: " << maailma.creaturesByBirth[0]->myCoord.x << " r g b: " << maailma.creaturesByBirth[0]->RGBgenome.r << maailma.creaturesByBirth[0]->RGBgenome.g << maailma.creaturesByBirth[0]->RGBgenome.b << endl;
 
-    myfile << "Otus[" << maailma.creaturesByBirth.size()-1 << "]: synnyin! Arvoilla (rgb) " << maailma.creaturesByBirth[0]->outRGB() << endl;                      // t‰ll‰ kierroksella syntyneit‰
+    // luodaan yks otus
+    short* rgbni;
+    rgbni = (maailma.creaturesByBirth[0]->outRGB());
+    myfile << rgbni[0] << " " << rgbni[1] << " " << rgbni[2] << endl;
+    myfile << "Otus[" << maailma.creaturesByBirth.size()-1 << "]: synnyin! Arvoilla (rgb) " << (rgbni[0]) << (rgbni[1]) << (rgbni[2]) << endl;                      // t‰ll‰ kierroksella syntyneit‰
+    delete rgbni;
 
+    // luodaan loput otukset
     for (int i=maailma.creaturesByBirth.size(); i<OTUKSIA_ALUSSA; i++) {
       int x_syntyva = (317+3*i)%WIDTH;
       int y_syntyva = (237+3*i)%HEIGHT;
       if (maailma.creatures[x_syntyva][y_syntyva]==NULL) {
-        cout << "Oli NULL" << endl;
         bool hmm = maailma.createCreature(rgb{(255-i)%256,(3+i)%256,0},coordinates{x_syntyva,y_syntyva});
-        // myfile << "mau";
-        cout << "Uus otus luotu" << endl;
+        myfile << "Uus otus luotu" << endl;
       }
-  //    maailmanOtukset.at(i+1).omaJarjestysNro = i+1; // tiedet‰‰n et yks on tehty aiemmin
     }
 
-  cout << "While-looppi alkamassa" << endl;
-
+  myfile << "While-looppi alkamassa" << endl;
   while(!keypress) {  // Vars. looppi
-    cout << "Drawscreen alkamassa" << endl;
+    myfile << "Drawscreen alkamassa" << endl;
     drawScreen(petrimalja, maailma);
-    cout << "Drawscreen tehty" << endl;
-
+    myfile << "Drawscreen tehty" << endl;
     while(SDL_PollEvent(&event)) { // jos 1 painettu, loppu
       switch (event.type) {
         case SDL_QUIT:
-        cout << "Case n‰ytt‰‰ SDL_QUITilta" << endl;
+        myfile << "Case n‰ytt‰‰ SDL_QUITilta" << endl;
         keypress = 1;
         break;
         case SDL_KEYDOWN:
-        cout << "Case n‰ytt‰‰ SDL_KEYDOWNilta" << endl;
+        myfile << "Case n‰ytt‰‰ SDL_KEYDOWNilta" << endl;
         keypress = 1;
         break;
       }
     }
-    cout << "SDL_Pollevent ohitettu" << endl;
+    myfile << "SDL_Pollevent ohitettu" << endl;
 
-    {   // Liikkumiset, latautumiset
-      for(int i=0; i<maailma.creaturesByBirth.size(); i++) {
-        cout << "Liikutaan" << endl;
-        cout << "Liikuttu" << endl;
+    // Liikkumiset, latautumiset
+    for(int i=0; i<maailma.creaturesByBirth.size(); i++) {
 
-/*        if (*maailmanOtukset[i].lisaantymiseenAikaa >0) {    // kohta saatte lis‰‰nty‰ taas
-          maailmanOtukset[i].lisaantymiseenAikaa--;
-          maailmanOtukset[i].relax();
-        }*/
-      }
-
+/*    if (*maailmanOtukset[i].lisaantymiseenAikaa >0) {    // kohta saatte lis‰‰nty‰ taas
+        maailmanOtukset[i].lisaantymiseenAikaa--;
+        maailmanOtukset[i].relax();
+      }*/
     }
+
+
 
 //    maailma.findAllProcreators();
 

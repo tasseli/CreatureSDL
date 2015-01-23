@@ -1,19 +1,12 @@
 #include <SDL/SDL.h>
-
 #include <vector>
 
 #include "Otus.h"
 #include "grafiikka.h"
 
-//#include <iostream>   // varmaan inputoutputtia?
-//#include <stdio.h>    // varmaan inputoutputtia?
 //#include <time.h>       // k‰ytet‰‰n kelloa rand()in seedin‰
-//#include <vector>       // luodaan Otuksista dynaaminen lista
-
 
 using namespace std;
-
-//#include grafiikka.h
 
 void setPixel(SDL_Surface *s, coordinates coords, rgb color) {
   int *scr = (int*)s->pixels;
