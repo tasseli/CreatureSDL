@@ -125,10 +125,10 @@ Otus* Maailma::feelAround(Otus* feeler) { // returns NULL if none around, else p
 
 void Maailma::copulate(Otus* mommy) {
   Otus* daddy = feelAround(mommy);
-  if (daddy != NULL && mommy->waitSex == 0) {
+  if (daddy != NULL && mommy->waitSex == 0 && creaturesByBirth.size()<OTUKSIAMAX) {
     bool didIt = createCreature(mommy, daddy);
-//    horny();            // ilmaistaan himo hornyym‰ll‰. Otus on vasta siis lˆyt‰nyt himoittavan tyypin, ja muuttuu keltaiseksi.
-//    puoliso.horny();    // puolisokin on kuuma parittelusta. Vastaanottavan osapuolen palautumisaikaa ei kuitenkaan s‰‰det‰, kaksineuvoisuus <3
+    mommy->freak();            // ilmaistaan himo hornyym‰ll‰. Otus on vasta siis lˆyt‰nyt himoittavan tyypin, ja muuttuu keltaiseksi.
+    daddy->freak();    // puolisokin on kuuma parittelusta. Vastaanottavan osapuolen palautumisaikaa ei kuitenkaan s‰‰det‰, kaksineuvoisuus <3
     mommy->waitSex += PALAUDU;
 //    myfile << "createCreature(suvullinen): " << didIt << endl;
   }

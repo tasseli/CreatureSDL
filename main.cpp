@@ -74,37 +74,43 @@ int main(int argc, char* argv[]) {
 
   myfile << "While-looppi alkamassa" << endl;
   while(!keypress) {  // Vars. looppi
-    myfile << "Drawscreen alkamassa" << endl;
-    drawScreen(petrimalja, maailma);
-    myfile << "Drawscreen tehty" << endl;
-    while(SDL_PollEvent(&event)) { // jos 1 painettu, loppu
-      switch (event.type) {
-        case SDL_QUIT:
-        myfile << "Case n‰ytt‰‰ SDL_QUITilta" << endl;
-        keypress = 1;
-        break;
-        case SDL_KEYDOWN:
-        myfile << "Case n‰ytt‰‰ SDL_KEYDOWNilta" << endl;
-        keypress = 1;
-        break;
+    for( int colorCounter = 0; colorCounter<10; ++colorCounter) {
+      myfile << "Drawscreen alkamassa" << endl;
+      drawScreen(petrimalja, maailma);
+      myfile << "Drawscreen tehty" << endl;
+      while(SDL_PollEvent(&event)) { // jos 1 painettu, loppu
+        switch (event.type) {
+          case SDL_QUIT:
+          myfile << "Case n‰ytt‰‰ SDL_QUITilta" << endl;
+          keypress = 1;
+          break;
+          case SDL_KEYDOWN:
+          myfile << "Case n‰ytt‰‰ SDL_KEYDOWNilta" << endl;
+          keypress = 1;
+          break;
+        }
       }
-    }
-    myfile << "SDL_Pollevent ohitettu" << endl;
-
-    // Liikkumiset, latautumiset
-    for(int i=0; i<maailma.creaturesByBirth.size(); i++) {
-      maailma.moveCreature(maailma.creaturesByBirth[i]);
-      if(maailma.creaturesByBirth[i]->waitSex>=1) {
-        --maailma.creaturesByBirth[i]->waitSex;
+      myfile << "SDL_Pollevent ohitettu" << endl;
+        // Liikkumiset, latautumiset
+      for(int i=0; i<maailma.creaturesByBirth.size(); i++) {
+        maailma.moveCreature(maailma.creaturesByBirth[i]);
+        if(maailma.creaturesByBirth[i]->waitSex>=1) {
+          --maailma.creaturesByBirth[i]->waitSex;
+        }
+  /*    if (*maailmanOtukset[i].lisaantymiseenAikaa >0) {    // kohta saatte lis‰‰nty‰ taas
+          maailmanOtukset[i].lisaantymiseenAikaa--;
+          maailmanOtukset[i].relax();
+        }*/
       }
-/*    if (*maailmanOtukset[i].lisaantymiseenAikaa >0) {    // kohta saatte lis‰‰nty‰ taas
-        maailmanOtukset[i].lisaantymiseenAikaa--;
-        maailmanOtukset[i].relax();
-      }*/
-    }
-    int bz = maailma.creaturesByBirth.size();
-    for(int i=0; i<bz; i++) {
-      maailma.copulate(maailma.creaturesByBirth[i]);
+      int bz = maailma.creaturesByBirth.size();
+      for(int i=0; i<bz; i++) {
+        maailma.copulate(maailma.creaturesByBirth[i]);
+      }
+      if( colorCounter%10 == 9) {
+        for(int i=0; i<maailma.creaturesByBirth.size(); i++) {
+          maailma.creaturesByBirth[i]->relax();
+        }
+      }
     }
 
 

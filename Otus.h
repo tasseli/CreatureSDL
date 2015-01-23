@@ -16,7 +16,6 @@ class Otus//: public Maailma
 public:
   rgb RGBfenotype;                    // fenotyyppi: n‰kyv‰, muuttuva ominaisuus
   rgb RGBgenome;                      // genotyyppi: otukseen koodattu, muuttumaton ominaisuus
-  //float r_askel, g_askel, b_askel;    // paljonko relatessa palautetaan v‰ri‰ kerralla
   coordinates myCoord;
   int birthNumber;
   static int birthCounter;
@@ -26,12 +25,12 @@ public:
   Otus (rgb RGBgenome_, coordinates whereTo);   // m‰‰r‰‰ v‰ri
 
   short* outRGB();
-/*
+
   void horny();           // ilmaise tunnetilaasi v‰rj‰ytym‰ll‰ keltaiseksi
   void freak();           // ilmaise itse‰si v‰rj‰ytym‰ll‰ siniseksi
   void relax();           // relaa hieman, siirry innostuksesta kohti normaalitilaa
-  float kohtiOmaaVaria(float vari, float normaalivari, char varinNimi);     // hoida siirtym‰ viksuna askelena normaalitilaa kohden
-*/
+  int towardsOwnColor(int color, int normalColor);     // hoida siirtym‰ viksuna askelena normaalitilaa kohden
+
 
 };
 

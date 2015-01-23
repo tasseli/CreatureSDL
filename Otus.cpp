@@ -21,60 +21,44 @@ short* Otus::outRGB() {
   return rgb;
 }
 
-/*
+
 void Otus::horny() { // muututaan keltaiseksi (Otuksien syntyvärit on kirjoittaessani punasävyisiä)
-  r =255;
-  g =255;
-  b =0;
+  RGBfenotype.r =255;
+  RGBfenotype.g =255;
+  RGBfenotype.b =0;
 }
 
 void Otus::freak() { // muututaan siniseksi (Otuksien syntyvärit on kirjoittaessani punasävyisiä)
-  r =0;
-  g =0;
-  b =255;
+  RGBfenotype.r =0;
+  RGBfenotype.g =0;
+  RGBfenotype.b =255;
 }
 
 void Otus::relax() {  // fenotyypin implementaatiota
-  if (r!=r_gen) {
-    r = kohtiOmaaVaria(r, r_gen, 'r');
+  if (RGBfenotype.r!=RGBgenome.r) {
+    RGBfenotype.r = towardsOwnColor(RGBfenotype.r, RGBgenome.r);
   }
-  if (g!=g_gen) {
-    g = kohtiOmaaVaria(g, g_gen, 'g');
+  if (RGBfenotype.g!=RGBgenome.g) {
+    RGBfenotype.g = towardsOwnColor(RGBfenotype.g, RGBgenome.g);
   }
-  if (b!=b_gen) {
-    b = kohtiOmaaVaria(b, b_gen, 'b');
+  if (RGBfenotype.b!=RGBgenome.b) {
+    RGBfenotype.b = towardsOwnColor(RGBfenotype.b, RGBgenome.b);
   }
 }
 
-float Otus::kohtiOmaaVaria(float vari, float normaalivari, char varinNimi) {  // fenotyypin implementaatiota
-  if (abs(vari - normaalivari)<TARKKUUS) {
-    return normaalivari;
+int Otus::towardsOwnColor(int colorNow, int normalColor) {  // fenotyypin implementaatiota
+  int returnStep = 25;
+  if (abs(colorNow - normalColor)<TARKKUUS || abs(colorNow - normalColor)<returnStep) {
+    return normalColor;
   }
   else {
-    switch (varinNimi) {
-    case 'r':
-      if (r_askel == 0) {
-        r_askel = (normaalivari-vari)/PALAUDU;
-      }
-      return (vari + r_askel);
-      break;
-    case 'g':
-      if (g_askel == 0) {
-        g_askel = (normaalivari-vari)/PALAUDU;
-      }
-      return (vari + g_askel);
-      break;
-    case 'b':
-      if (b_askel == 0) {
-        b_askel = (normaalivari-vari)/PALAUDU;
-      }
-      return (vari + b_askel);
-      break;
-    default:
-      exit(11);
-      break;
+    if(colorNow<normalColor) {
+      return colorNow += returnStep;
+    }
+    else {
+      return colorNow -= returnStep;
     }
   }
 }
-*/
+
 
