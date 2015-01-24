@@ -14,7 +14,7 @@ Maailma::Maailma(int width, int height) {
 
 bool Maailma::createCreature(Otus* mother, Otus* father) {
   coordinates whereTo = findEmptyNeighbor(mother->myCoord);
-  if (whereTo!=mother->myCoord) {
+  if (withinBounds(whereTo) && whereTo!=mother->myCoord) {
     creatures[whereTo.x][whereTo.y]=new Otus(rgb{mother->RGBgenome.r, mother->RGBgenome.g, mother->RGBgenome.b},coordinates{whereTo.x, whereTo.y});
     creaturesByBirth.push_back(creatures[whereTo.x][whereTo.y]);
     return true;
@@ -24,7 +24,7 @@ bool Maailma::createCreature(Otus* mother, Otus* father) {
 }
 
 bool Maailma::createCreature(coordinates whereTo) { // create a red creature
-  if (creatures[whereTo.x][whereTo.y]==NULL) {
+  if (withinBounds(whereTo) && creatures[whereTo.x][whereTo.y]==NULL) {
     creatures[whereTo.x][whereTo.y]=new Otus(rgb{255, 0, 0}, coordinates {whereTo.x, whereTo.y});
     creaturesByBirth.push_back(creatures[whereTo.x][whereTo.y]);
     return true;
@@ -34,7 +34,7 @@ bool Maailma::createCreature(coordinates whereTo) { // create a red creature
 }
 
 bool Maailma::createCreature(rgb genome, coordinates whereTo) { // create a red creature
-  if (creatures[whereTo.x][whereTo.y]==NULL) {
+  if (withinBounds(whereTo) && creatures[whereTo.x][whereTo.y]==NULL) {
     creatures[whereTo.x][whereTo.y]=new Otus(rgb{genome.r, genome.g, genome.b}, coordinates {whereTo.x, whereTo.y});
     creaturesByBirth.push_back(creatures[whereTo.x][whereTo.y]);
     return true;
@@ -55,12 +55,19 @@ bool Maailma::nextTo(coordinates myCoords, coordinates herCoords) {
   return false;
 }
 
+bool Maailma::withinBounds(coordinates c) {
+  if((c.x >= 0) && (c.x < WIDTH) && (c.y >= 0) && (c.y < HEIGHT)) {
+    return true;
+  }
+  else {return false;}
+}
+
 void Maailma::breathe(Otus* breather) {
   short breathingSpacesNeeded = 5;
   coordinates toThis = breather->myCoord;
   for (int i=toThis.x-1; i<= toThis.x+1; ++i) {
     for (int j=toThis.y-1; j<= toThis.y+1; ++j) {
-      if(toThis.x!=i||toThis.y!=j) {
+      if(withinBounds(coordinates{i,j}) && (toThis.x!=i||toThis.y!=j)) {
         if (creatures[i][j] == NULL) {
           breathingSpacesNeeded-=1;
         }
@@ -74,7 +81,7 @@ void Maailma::breathe(Otus* breather) {
 coordinates Maailma::findEmptyNeighbor(coordinates toThis) {
   for (int i=toThis.x-1; i<= toThis.x+1; ++i) {
     for (int j=toThis.y-1; j<= toThis.y+1; ++j) {
-      if(toThis.x!=i||toThis.y!=j) {
+      if(withinBounds(coordinates{i,j}) && (toThis.x!=i||toThis.y!=j)) {
         if (creatures[i][j] == NULL) {
           coordinates here(i,j);
           return here;
@@ -82,12 +89,13 @@ coordinates Maailma::findEmptyNeighbor(coordinates toThis) {
       }
     }
   }
+  return coordinates(-3,-3);
 }
 
 coordinates Maailma::findNeighbor(coordinates toThis) {
   for (int i=toThis.x-1; i<= toThis.x+1; ++i) {
     for (int j=toThis.y-1; j<= toThis.y+1; ++j) {
-      if(toThis.x!=i||toThis.y!=j) {
+      if(withinBounds(coordinates{i,j}) && (toThis.x!=i||toThis.y!=j)) {
         if (creatures[i][j] != NULL) {
           coordinates here(i,j);
           return here;
@@ -95,6 +103,7 @@ coordinates Maailma::findNeighbor(coordinates toThis) {
       }
     }
   }
+  return coordinates(-3,-3);
 }
 
 void Maailma::moveCreature (Otus* moved) // muuttaa otuksen koordinaatteja
@@ -118,7 +127,7 @@ Otus* Maailma::feelAround(Otus* feeler) { // returns NULL if none around, else p
     if (i != feeler->birthNumber) {
       coordinates theirCoords = findNeighbor(feeler->myCoord);
       coordinates myCoords = feeler->myCoord;
-      if (nextTo(myCoords, theirCoords)) {
+      if(theirCoords!=coordinates{-3,-3}) {
         return creaturesByBirth[i];   // valitaan eka
       }
     }
@@ -130,9 +139,11 @@ void Maailma::copulate(Otus* mommy) {
   Otus* daddy = feelAround(mommy);
   if (daddy != NULL && mommy->waitSex == 0 && creaturesByBirth.size()<MAX_CREATURES) {
     bool didIt = createCreature(mommy, daddy);
-    mommy->freak();            // ilmaistaan himo hornyym‰ll‰. Otus on vasta siis lˆyt‰nyt himoittavan tyypin, ja muuttuu keltaiseksi.
-    daddy->freak();    // puolisokin on kuuma parittelusta. Vastaanottavan osapuolen palautumisaikaa ei kuitenkaan s‰‰det‰, kaksineuvoisuus <3
-    mommy->waitSex += WAIT_AFTER;
+    if (didIt==true) {
+      mommy->freak();            // ilmaistaan himo hornyym‰ll‰. Otus on vasta siis lˆyt‰nyt himoittavan tyypin, ja muuttuu keltaiseksi.
+      daddy->freak();    // puolisokin on kuuma parittelusta. Vastaanottavan osapuolen palautumisaikaa ei kuitenkaan s‰‰det‰, kaksineuvoisuus <3
+      mommy->waitSex += WAIT_AFTER;
+    }
   }
 }
 

@@ -17,6 +17,7 @@ public:
     bool createCreature(coordinates whereTo);
     bool createCreature(rgb genome, coordinates whereTo);
     bool nextTo(coordinates myCoords, coordinates herCoords);
+    bool withinBounds(coordinates c);
     void breathe(Otus* breather);
     coordinates findEmptyNeighbor(coordinates toThis);
     coordinates findNeighbor(coordinates toThis);
