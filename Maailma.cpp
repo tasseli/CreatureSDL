@@ -55,6 +55,22 @@ bool Maailma::nextTo(coordinates myCoords, coordinates herCoords) {
   return false;
 }
 
+void Maailma::breathe(Otus* breather) {
+  short breathingSpacesNeeded = 5;
+  coordinates toThis = breather->myCoord;
+  for (int i=toThis.x-1; i<= toThis.x+1; ++i) {
+    for (int j=toThis.y-1; j<= toThis.y+1; ++j) {
+      if(toThis.x!=i||toThis.y!=j) {
+        if (creatures[i][j] == NULL) {
+          breathingSpacesNeeded-=1;
+        }
+      }
+    }
+  }
+  if (breathingSpacesNeeded>0)
+    breather->isAlive = false;
+}
+
 coordinates Maailma::findEmptyNeighbor(coordinates toThis) {
   for (int i=toThis.x-1; i<= toThis.x+1; ++i) {
     for (int j=toThis.y-1; j<= toThis.y+1; ++j) {

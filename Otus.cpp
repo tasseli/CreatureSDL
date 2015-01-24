@@ -9,6 +9,7 @@ Otus::Otus (rgb RGBgenome_, coordinates whereTo) {
 //  r_askel = g_askel = b_askel = 0;      // tulevat tarpeelliseks kun implementoidaan fenotyyppi
   birthNumber = birthCounter++;
   waitSex = WAIT_FIRST;
+  isAlive = true;
 }
 
 void Otus::horny() { // muututaan keltaiseksi (Otuksien syntyvärit on kirjoittaessani punasävyisiä)

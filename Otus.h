@@ -21,6 +21,7 @@ public:
   static int birthCounter;
   //    int ika = 0;
   int waitSex;   // selibaatin kesto, askelia
+  bool isAlive;
 
   Otus (rgb RGBgenome_, coordinates whereTo);   // m‰‰r‰‰ v‰ri
 
