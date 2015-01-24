@@ -6,7 +6,7 @@
 #include "grafiikka.h"  // esimerkkisivulta kopioitu ja muokattu grafiikkarutiini
 
 #include <iostream>
-#include <fstream>
+//#include <fstream>
 
 using namespace std;
 
@@ -28,8 +28,8 @@ using namespace std;
 int main(int argc, char* argv[]) {
 
   // Logi, SDL init
-  ofstream myfile;                // out-file-streamiasia
-  myfile.open("otuslogi.txt");   // logataan kuulumisia kuten sijaintia
+//  ofstream myfile;                // out-file-streamiasia
+//  myfile.open("otuslogi.txt");   // logataan kuulumisia kuten sijaintia
   srand(time(0));                 // rand():in seedaus erolla nollakellonlyömään
   SDL_Surface *petrimalja;            // SDL:n käyttöä, jota en tarkemmin ymmärrä
   SDL_Event event;
@@ -49,7 +49,6 @@ int main(int argc, char* argv[]) {
     int y_syntyva = (237+3*i)%HEIGHT;
     if (maailma.creatures[x_syntyva][y_syntyva]==NULL) {
       bool hmm = maailma.createCreature(rgb{(255-18*i)%256,(3+20*i)%256,220*i%256},coordinates{x_syntyva,y_syntyva});
-      myfile << "Uus otus luotu" << endl;
     }
   }
 
@@ -61,11 +60,9 @@ int main(int argc, char* argv[]) {
       while(SDL_PollEvent(&event)) { // jos 1 painettu, loppu
         switch (event.type) {
           case SDL_QUIT:
-          myfile << "Case näyttää SDL_QUITilta" << endl;
           keypress = 1;
           break;
           case SDL_KEYDOWN:
-          myfile << "Case näyttää SDL_KEYDOWNilta" << endl;
           keypress = 1;
           break;
         }
@@ -94,8 +91,8 @@ int main(int argc, char* argv[]) {
       }
     }
   }
-  myfile << "while päättyi" << endl;
-  myfile.close();
+//  myfile << "while päättyi" << endl;
+//  myfile.close();
   SDL_Quit();
 
   return 0;

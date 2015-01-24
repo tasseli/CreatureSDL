@@ -1,8 +1,14 @@
+#include <iomanip>
+#include <fstream>
 #include "Otus.h"
+using std::setfill;
+using std::setw;
 
 int Otus::birthCounter = 0; // staticin alustus! Ei classiin.
 
 Otus::Otus (rgb RGBgenome_, coordinates whereTo) {
+  ofstream myfile;                // out-file-streamiasia
+  myfile.open("otuslogi.txt", ios::app);   // logataan kuulumisia kuten sijaintia
   myCoord.x = whereTo.x;
   myCoord.y = whereTo.y;
   RGBfenotype = RGBgenome = RGBgenome_;
@@ -10,6 +16,10 @@ Otus::Otus (rgb RGBgenome_, coordinates whereTo) {
   birthNumber = birthCounter++;
   waitSex = WAIT_FIRST;
   isAlive = true;
+  myfile << "Synnyin! Rgb ";
+  myfile << std::setfill(' ') << std::setw(3) << RGBgenome_.r << ' ' << std::setw(3) << RGBgenome_.g << ' ' << std::setw(3) << RGBgenome_.b ;
+  myfile << ", xy " << std::setw(3) << whereTo.x << " " << std::setw(3) << whereTo.y << std::endl;
+  myfile.close();
 }
 
 void Otus::horny() { // muututaan keltaiseksi (Otuksien syntyvärit on kirjoittaessani punasävyisiä)

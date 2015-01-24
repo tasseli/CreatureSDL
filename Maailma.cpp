@@ -108,14 +108,10 @@ coordinates Maailma::findNeighbor(coordinates toThis) {
 
 void Maailma::moveCreature (Otus* moved) // muuttaa otuksen koordinaatteja
 {
-  cout << "Liiku: alku";
   coordinates location = moved->myCoord;
-
   coordinates directionWish(rand()%3-1,rand()%3-1);
   coordinates wp = location+directionWish;
-  cout << "x: " << (wp.x) << " y: " << (wp.y) << "\n";
   if (wp.x >= 0 && wp.x < WIDTH && wp.y >= 0 && wp.y < HEIGHT && creatures[wp.x][wp.y]==NULL) {
-    cout << "Yritän liikkua!" << endl;
     creatures[wp.x][wp.y] = creatures[location.x][location.y];
     creatures[location.x][location.y] = NULL;
     creatures[wp.x][wp.y]->myCoord = coordinates(wp.x,wp.y);
