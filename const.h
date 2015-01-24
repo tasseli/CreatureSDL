@@ -8,10 +8,10 @@ const short BPP             = 4     ;
 const short DEPTH           = 32    ;
 const short TARKKUUS        = 5     ;   // kuinka suurta eroa alkuper‰isen v‰rin poikkeamasta kunnioitetaan
 
-const short OTUKSIAMAX      = 200   ;
-const short OTUKSIA_ALUSSA  = 10  ;
-const short PALAUDU         = 330  ;   // montako askelta otuksen on otettava palautuakseen, ennen kuin jaksaa taas lis‰‰nty‰
-const short ALKUUN_ILMAN    = 30   ;   // mink‰ verran otukset on lis‰‰ntym‰tt‰ demon aluksi
+const short MAX_CREATURES   = 2000   ;
+const short INIT_CREATURES  = 10  ;
+const short WAIT_AFTER      = 830  ;   // montako askelta otuksen on otettava palautuakseen, ennen kuin jaksaa taas lis‰‰nty‰
+const short WAIT_FIRST      = 130   ;   // mink‰ verran otukset on lis‰‰ntym‰tt‰ demon aluksi
 
 struct coordinates {
   int x;

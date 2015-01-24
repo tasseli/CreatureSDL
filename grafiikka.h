@@ -9,7 +9,9 @@ class Otus;
 
 using namespace std;
 
-void setPixel(SDL_Surface*, int, int, int, int, int);
+void setPixel(SDL_Surface*, coordinates coords_, rgb rgb_);
 
 void drawScreen(SDL_Surface*, Maailma& maailma);
+//void drawBackground(SDL_Surface*, Maailma& maailma);
+//void drawCreatures (SDL_Surface*, Maailma& maailma);
 

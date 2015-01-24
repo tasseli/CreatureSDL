@@ -4,9 +4,6 @@
 Maailma::Maailma(int width, int height) {
   creatures = vector<vector<Otus*> >();
   creaturesByBirth = vector<Otus*>();
-  heightSize = height;
-  widthSize = width;
-  //creaturesAliveSum = 0;
   for (int i = 0; i < width; ++i) {
     creatures.push_back(vector<Otus*>());
     for (int j = 0; j < height; ++j) {
@@ -71,14 +68,18 @@ coordinates Maailma::findEmptyNeighbor(coordinates toThis) {
   }
 }
 
-coordinates Maailma::getCoords(int birthNumber_) {
-  for (int i=0; i<creaturesByBirth.size(); i++) {
-    if (creaturesByBirth[i] != NULL && creaturesByBirth[i]->birthNumber == birthNumber_) {
-      coordinates toBeReturned = creaturesByBirth[i]->myCoord;
-      return toBeReturned;
+coordinates Maailma::findNeighbor(coordinates toThis) {
+  for (int i=toThis.x-1; i<= toThis.x+1; ++i) {
+    for (int j=toThis.y-1; j<= toThis.y+1; ++j) {
+      if(toThis.x!=i||toThis.y!=j) {
+        if (creatures[i][j] != NULL) {
+          coordinates here(i,j);
+          return here;
+        }
+      }
     }
   }
-} //
+}
 
 void Maailma::moveCreature (Otus* moved) // muuttaa otuksen koordinaatteja
 {
@@ -88,7 +89,7 @@ void Maailma::moveCreature (Otus* moved) // muuttaa otuksen koordinaatteja
   coordinates directionWish(rand()%3-1,rand()%3-1);
   coordinates wp = location+directionWish;
   cout << "x: " << (wp.x) << " y: " << (wp.y) << "\n";
-  if (wp.x >= 0 && wp.x < widthSize && wp.y >= 0 && wp.y < heightSize && creatures[wp.x][wp.y]==NULL) {
+  if (wp.x >= 0 && wp.x < WIDTH && wp.y >= 0 && wp.y < HEIGHT && creatures[wp.x][wp.y]==NULL) {
     cout << "Yrit‰n liikkua!" << endl;
     creatures[wp.x][wp.y] = creatures[location.x][location.y];
     creatures[location.x][location.y] = NULL;
@@ -96,26 +97,12 @@ void Maailma::moveCreature (Otus* moved) // muuttaa otuksen koordinaatteja
   }
 }
 
-/*int Maailma::feelAround (int birthNumber_) { // returns the birthNumber (or -1) of a suitable copulate-able creature using nextTo(my birthNumber)
-
-  for (int i=0; i<creaturesAliveSum; i++) {
-    if (i != birthNumber_) {
-      coordinates herCoords = getCoords(i);
-      coordinates myCoords = getCoords(birthNumber_);
-      if (nextTo(myCoords, herCoords)) {
-        return i;   // valitaan eka
-      }
-    }
-  }
-  return -1;
-}*/
-
 Otus* Maailma::feelAround(Otus* feeler) { // returns NULL if none around, else pointer to lusted
   for (int i=0; i<creaturesByBirth.size(); i++) {
     if (i != feeler->birthNumber) {
-      coordinates herCoords = getCoords(i);
+      coordinates theirCoords = findNeighbor(feeler->myCoord);
       coordinates myCoords = feeler->myCoord;
-      if (nextTo(myCoords, herCoords)) {
+      if (nextTo(myCoords, theirCoords)) {
         return creaturesByBirth[i];   // valitaan eka
       }
     }
@@ -125,14 +112,12 @@ Otus* Maailma::feelAround(Otus* feeler) { // returns NULL if none around, else p
 
 void Maailma::copulate(Otus* mommy) {
   Otus* daddy = feelAround(mommy);
-  if (daddy != NULL && mommy->waitSex == 0 && creaturesByBirth.size()<OTUKSIAMAX) {
+  if (daddy != NULL && mommy->waitSex == 0 && creaturesByBirth.size()<MAX_CREATURES) {
     bool didIt = createCreature(mommy, daddy);
     mommy->freak();            // ilmaistaan himo hornyym‰ll‰. Otus on vasta siis lˆyt‰nyt himoittavan tyypin, ja muuttuu keltaiseksi.
     daddy->freak();    // puolisokin on kuuma parittelusta. Vastaanottavan osapuolen palautumisaikaa ei kuitenkaan s‰‰det‰, kaksineuvoisuus <3
-    mommy->waitSex += PALAUDU;
-//    myfile << "createCreature(suvullinen): " << didIt << endl;
+    mommy->waitSex += WAIT_AFTER;
   }
-//  myfile << "Ei lˆytynyt ket‰‰n :( " << endl;
 }
 
 /*

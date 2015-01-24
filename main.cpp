@@ -14,10 +14,10 @@ using namespace std;
 /*****
 
 //
-  Tavoite: piirret‰‰n 640x480 -kokoinen valkoinen petrimalja. Sen keskelt‰ aloittaa OTUKSIA_ALUSSA:n mukainen m‰‰r‰ Otuksia,
+  Tavoite: piirret‰‰n 640x480 -kokoinen valkoinen petrimalja. Sen keskelt‰ aloittaa INIT_CREATURES:n mukainen m‰‰r‰ Otuksia,
   jotka ovat syntyess‰‰n punas‰vyisi‰. Otukset havainnoivat samalle kohdalle sattuneita lajitovereitaan, ja pyrkiv‰t parittelemaan
   vieh‰tt‰vimm‰n kanssa. Onnistunut lis‰‰ntyminen saa otuksen friikkaamaan (muuttumaan siniseksi), ja lis‰‰ntymiseen johtamaton
-  parittelu (OTUKSIAMAXin tultua t‰yteen) tekee ne hornyiksi (keltaisiksi). V‰ri palautuu otuksen PALAUDU-keston aikana sen omaksi.
+  parittelu (MAX_CREATURES tultua t‰yteen) tekee ne hornyiksi (keltaisiksi). V‰ri palautuu otuksen PALAUDU-keston aikana sen omaksi.
 
   Otus perii v‰rins‰ v‰limuotona vanhempiensa genomeista.
   Otuksella on v‰ri ja koordinaatit, ja se liikkuu ~satunnaisesti. Reunalla otus p‰‰tt‰‰ olla kulkematta maljan sein‰n yli.
@@ -27,57 +27,35 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 
-   // Logi, SDL init
-    ofstream myfile;                // out-file-streamiasia
-    myfile.open("otuslogi.txt");   // logataan kuulumisia kuten sijaintia
-    myfile << "Avataan logi" << endl;
+  // Logi, SDL init
+  ofstream myfile;                // out-file-streamiasia
+  myfile.open("otuslogi.txt");   // logataan kuulumisia kuten sijaintia
+  srand(time(0));                 // rand():in seedaus erolla nollakellonlyˆm‰‰n
+  SDL_Surface *petrimalja;            // SDL:n k‰yttˆ‰, jota en tarkemmin ymm‰rr‰
+  SDL_Event event;
+  int keypress = 0;
+  if (SDL_Init(SDL_INIT_VIDEO) < 0) return 1;
+  if (!(petrimalja = SDL_SetVideoMode(WIDTH, HEIGHT, DEPTH, SDL_HWSURFACE))) {   //Asetettu Otus.h:ssa - mut mit‰h‰n: SDL_FULLSCREEN| tekee. Ahaa. Flagit tulee |:illa eroteltuina vikaks.
+    SDL_Quit();
+    return 1;
+  }
 
-    srand(time(0));                 // rand():in seedaus erolla nollakellonlyˆm‰‰n
-    SDL_Surface *petrimalja;            // SDL:n k‰yttˆ‰, jota en tarkemmin ymm‰rr‰
-    SDL_Event event;
+  // Otuksien alkusynty
+  Maailma maailma(WIDTH,HEIGHT);
 
-    int keypress = 0;
-
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) return 1;
-    myfile << "tsekattiin mit‰ SDL_Init sano" << endl;
-    if (!(petrimalja = SDL_SetVideoMode(WIDTH, HEIGHT, DEPTH, SDL_HWSURFACE))) {   //Asetettu Otus.h:ssa - mut mit‰h‰n: SDL_FULLSCREEN| tekee. Ahaa. Flagit tulee |:illa eroteltuina vikaks.
-      SDL_Quit();
-      return 1;
+  // luodaan otukset
+  for (int i=maailma.creaturesByBirth.size(); i<INIT_CREATURES; i++) {
+    int x_syntyva = (317+3*i)%WIDTH;
+    int y_syntyva = (237+3*i)%HEIGHT;
+    if (maailma.creatures[x_syntyva][y_syntyva]==NULL) {
+      bool hmm = maailma.createCreature(rgb{(255-i)%256,(3+i)%256,0},coordinates{x_syntyva,y_syntyva});
+      myfile << "Uus otus luotu" << endl;
     }
-    myfile << "tsekattiin mit‰ SDL_SetVideoMode sano" << endl;
+  }
 
-   // Otuksien alkusynty
-    Maailma maailma(WIDTH,HEIGHT);               // petrimaljan data, sis. ison otuspointteritaulukon
-    myfile << "Maailma luotu" << endl;
-
-    coordinates to(320,241); // ekan otuksen luomiskohta
-    bool whatEv = maailma.createCreature(to);
-    myfile << "Otus luotu: " << whatEv << endl;
-    myfile << "maailma.creaturesByBirthin koko 1: " << maailma.creaturesByBirth.size() << " maailma.creaturesByBirth[0]->myCoord.x: " << maailma.creaturesByBirth[0]->myCoord.x << " r g b: " << maailma.creaturesByBirth[0]->RGBgenome.r << maailma.creaturesByBirth[0]->RGBgenome.g << maailma.creaturesByBirth[0]->RGBgenome.b << endl;
-
-    // luodaan yks otus
-    short* rgbni;
-    rgbni = (maailma.creaturesByBirth[0]->outRGB());
-    myfile << rgbni[0] << " " << rgbni[1] << " " << rgbni[2] << endl;
-    myfile << "Otus[" << maailma.creaturesByBirth.size()-1 << "]: synnyin! Arvoilla (rgb) " << (rgbni[0]) << (rgbni[1]) << (rgbni[2]) << endl;                      // t‰ll‰ kierroksella syntyneit‰
-    delete rgbni;
-
-    // luodaan loput otukset
-    for (int i=maailma.creaturesByBirth.size(); i<OTUKSIA_ALUSSA; i++) {
-      int x_syntyva = (317+3*i)%WIDTH;
-      int y_syntyva = (237+3*i)%HEIGHT;
-      if (maailma.creatures[x_syntyva][y_syntyva]==NULL) {
-        bool hmm = maailma.createCreature(rgb{(255-i)%256,(3+i)%256,0},coordinates{x_syntyva,y_syntyva});
-        myfile << "Uus otus luotu" << endl;
-      }
-    }
-
-  myfile << "While-looppi alkamassa" << endl;
-  while(!keypress) {  // Vars. looppi
-    for( int colorCounter = 0; colorCounter<10; ++colorCounter) {
-      myfile << "Drawscreen alkamassa" << endl;
+  while(!keypress) {  // Vars. looppi kunnes keskeytet‰‰n napilla
+    for( int colorCounter = 0; colorCounter<10; ++colorCounter) { // hoidetaan relax()it joka 10. ticki
       drawScreen(petrimalja, maailma);
-      myfile << "Drawscreen tehty" << endl;
       while(SDL_PollEvent(&event)) { // jos 1 painettu, loppu
         switch (event.type) {
           case SDL_QUIT:
@@ -90,45 +68,29 @@ int main(int argc, char* argv[]) {
           break;
         }
       }
-      myfile << "SDL_Pollevent ohitettu" << endl;
-        // Liikkumiset, latautumiset
+      // Liikkumiset, latautumiset
       for(int i=0; i<maailma.creaturesByBirth.size(); i++) {
         maailma.moveCreature(maailma.creaturesByBirth[i]);
         if(maailma.creaturesByBirth[i]->waitSex>=1) {
           --maailma.creaturesByBirth[i]->waitSex;
         }
-  /*    if (*maailmanOtukset[i].lisaantymiseenAikaa >0) {    // kohta saatte lis‰‰nty‰ taas
-          maailmanOtukset[i].lisaantymiseenAikaa--;
-          maailmanOtukset[i].relax();
-        }*/
       }
+      // Parittelut
       int bz = maailma.creaturesByBirth.size();
       for(int i=0; i<bz; i++) {
         maailma.copulate(maailma.creaturesByBirth[i]);
       }
+      // V‰rien palauttelu genotyyppi‰ kohti
       if( colorCounter%10 == 9) {
         for(int i=0; i<maailma.creaturesByBirth.size(); i++) {
           maailma.creaturesByBirth[i]->relax();
         }
       }
     }
-
-
-
-//    maailma.findAllProcreators();
-
-/*          maailmanOtukset[i].freak();
-          myfile << "Otus[" << otuksetSizeAluksi+syntyneita << "]: synnyin! Arvoilla (rgb) "<< syntyva->r << " " << syntyva->g << " " << syntyva->b <<" (xy) " << syntyva->x << " " << syntyva->y << " \n"; // t‰ll‰ kierroksella syntyneit‰
-          syntyneita++;*/
-
-//         if (!syntyva) cout << "ei syntyv‰‰" << endl;
-
-
   }
-  cout << "while p‰‰ttyi" << endl;
+  myfile << "while p‰‰ttyi" << endl;
   myfile.close();
   SDL_Quit();
-  cout << "close ja quit tehty" << endl;
 
   return 0;
 }

@@ -20,11 +20,9 @@ public:
   int birthNumber;
   static int birthCounter;
   //    int ika = 0;
-  int waitSex = ALKUUN_ILMAN;   // selibaatin kesto, askelia
+  int waitSex;   // selibaatin kesto, askelia
 
   Otus (rgb RGBgenome_, coordinates whereTo);   // m‰‰r‰‰ v‰ri
-
-  short* outRGB();
 
   void horny();           // ilmaise tunnetilaasi v‰rj‰ytym‰ll‰ keltaiseksi
   void freak();           // ilmaise itse‰si v‰rj‰ytym‰ll‰ siniseksi

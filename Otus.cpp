@@ -8,19 +8,8 @@ Otus::Otus (rgb RGBgenome_, coordinates whereTo) {
   RGBfenotype = RGBgenome = RGBgenome_;
 //  r_askel = g_askel = b_askel = 0;      // tulevat tarpeelliseks kun implementoidaan fenotyyppi
   birthNumber = birthCounter++;
+  waitSex = WAIT_FIRST;
 }
-
-short* Otus::outRGB() {
-  short* rgb = new short[3];
-  rgb[0] = RGBgenome.r;
-  std::cout << "Otus.cpp: " << RGBgenome.r << rgb[0] ;
-  rgb[1] = RGBgenome.g;
-  std::cout << RGBgenome.g << rgb[1] ;
-  rgb[2] = RGBgenome.b;
-  std::cout << RGBgenome.b << rgb[2] << std::endl;
-  return rgb;
-}
-
 
 void Otus::horny() { // muututaan keltaiseksi (Otuksien syntyvärit on kirjoittaessani punasävyisiä)
   RGBfenotype.r =255;
