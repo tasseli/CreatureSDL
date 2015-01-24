@@ -15,17 +15,24 @@ void setPixel(SDL_Surface *s, coordinates coords, rgb color) {      //SDL_Surfac
     scr[coords.x + coords.y*s->w] = SDL_MapRGB(s->format, color.r, color.g, color.b); // .. mappaa v‰ri x:n ja y:n fiksusti m‰‰r‰‰m‰lle pixelille.
 }
 
-void drawScreen(SDL_Surface *petrimalja, Maailma& maailma) { // piirret‰‰n petrimalja, ja sitten joka otus vuorollaan sen p‰‰lle
+void drawBackground(SDL_Surface *petrimalja, Maailma& maailma) {
   int x, y;
-
   if(SDL_MUSTLOCK(petrimalja)) {
     if(SDL_LockSurface(petrimalja) < 0) return;
   }
-
   for(y = (petrimalja->h-1); y > -1; y-- ) {  // Alustetaan petrimalta, Otusten alusta eli screeni, valkoiseksi
     for( x = 0; x < petrimalja->w; x++ ) {
       setPixel(petrimalja, coordinates{x, y}, rgb{255, 255, 255});
     }
+  }
+  if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
+  SDL_Flip(petrimalja);
+}
+
+void drawCreatures(SDL_Surface *petrimalja, Maailma& maailma) { // piirret‰‰n petrimalja, ja sitten joka otus vuorollaan sen p‰‰lle
+  int x, y;
+  if(SDL_MUSTLOCK(petrimalja)) {
+    if(SDL_LockSurface(petrimalja) < 0) return;
   }
 
   if (maailma.creaturesByBirth.size()>0) {    // piirret‰‰n joka otus maljan p‰‰lle
@@ -37,8 +44,6 @@ void drawScreen(SDL_Surface *petrimalja, Maailma& maailma) { // piirret‰‰n petri
     }
   }
 
-
   if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
-
   SDL_Flip(petrimalja);
 }

@@ -53,9 +53,11 @@ int main(int argc, char* argv[]) {
     }
   }
 
+  drawBackground(petrimalja, maailma);
+
   while(!keypress) {  // Vars. looppi kunnes keskeytet‰‰n napilla
     for( int colorCounter = 0; colorCounter<10; ++colorCounter) { // hoidetaan relax()it joka 10. ticki
-      drawScreen(petrimalja, maailma);
+      drawCreatures(petrimalja, maailma);
       while(SDL_PollEvent(&event)) { // jos 1 painettu, loppu
         switch (event.type) {
           case SDL_QUIT:
