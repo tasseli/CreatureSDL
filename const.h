@@ -2,8 +2,8 @@
 #define CONST_H_INCLUDED
 
                                         // TODO: Jussin neuvo, omaks fileekseen
-const short WIDTH           = 120   ;   // Petrimaljan x
-const short HEIGHT          = 120   ;   // Petrimaljan y
+const short WIDTH           = 640   ;   // Petrimaljan x
+const short HEIGHT          = 480   ;   // Petrimaljan y
 const short BPP             = 4     ;
 const short DEPTH           = 32    ;
 const short GRAPH_ACCURACY  = 5     ;   // kuinka suurta eroa alkuperäisen värin poikkeamasta kunnioitetaan

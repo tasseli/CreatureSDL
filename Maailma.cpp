@@ -13,12 +13,14 @@ Maailma::Maailma(int width, int height) {
 }
 
 bool Maailma::createCreature(Otus* mother, Otus* father) {
-  coordinates whereTo = findEmptyNeighbor(mother->myCoord);
-  if (withinBounds(whereTo) && whereTo!=mother->myCoord) {
-    creatures[whereTo.x][whereTo.y]=new Otus(rgb{mother->RGBgenome.r, mother->RGBgenome.g, mother->RGBgenome.b},coordinates{whereTo.x, whereTo.y});
-    creaturesByBirth.push_back(creatures[whereTo.x][whereTo.y]);
-    return true;
-    // todo use father's genome too
+  if(mother->isAlive && father->isAlive) {
+    coordinates whereTo = findEmptyNeighbor(mother->myCoord);
+    if (withinBounds(whereTo) && whereTo!=mother->myCoord) {
+      creatures[whereTo.x][whereTo.y]=new Otus(rgb{mother->RGBgenome.r, mother->RGBgenome.g, mother->RGBgenome.b},coordinates{whereTo.x, whereTo.y});
+      creaturesByBirth.push_back(creatures[whereTo.x][whereTo.y]);
+      return true;
+      // todo use father's genome too
+    }
   }
   else return false;
 }
@@ -83,6 +85,11 @@ coordinates Maailma::findEmptyNeighbor(coordinates toThis) {
     for (int j=toThis.y-1; j<= toThis.y+1; ++j) {
       if(withinBounds(coordinates{i,j}) && (toThis.x!=i||toThis.y!=j)) {
         if (creatures[i][j] == NULL) {
+          coordinates here(i,j);
+          return here;
+        }
+        if (!creatures[i][j]->isAlive) {
+          delete creatures[i][j];
           coordinates here(i,j);
           return here;
         }
