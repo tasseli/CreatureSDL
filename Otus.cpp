@@ -37,7 +37,7 @@ void Otus::relax() {  // fenotyypin implementaatiota
 
 int Otus::towardsOwnColor(int colorNow, int normalColor) {  // fenotyypin implementaatiota
   int returnStep = 25;
-  if (abs(colorNow - normalColor)<TARKKUUS || abs(colorNow - normalColor)<returnStep) {
+  if (abs(colorNow - normalColor)<GRAPH_ACCURACY || abs(colorNow - normalColor)<returnStep) {
     return normalColor;
   }
   else {

@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
     int x_syntyva = (317+3*i)%WIDTH;
     int y_syntyva = (237+3*i)%HEIGHT;
     if (maailma.creatures[x_syntyva][y_syntyva]==NULL) {
-      bool hmm = maailma.createCreature(rgb{(255-i)%256,(3+i)%256,0},coordinates{x_syntyva,y_syntyva});
+      bool hmm = maailma.createCreature(rgb{(255-18*i)%256,(3+20*i)%256,220*i%256},coordinates{x_syntyva,y_syntyva});
       myfile << "Uus otus luotu" << endl;
     }
   }
