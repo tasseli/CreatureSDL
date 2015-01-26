@@ -28,6 +28,7 @@ public:
     Otus* checkProcreatingAbility();  // palauttaa ensimm‰isen parittelumahdollisuuden tai NULL*/
     vector<vector<Otus*> > creatures; // sis‰lt‰‰ pointterit kaikkiin Maailman Otuksiin (st‰ckiss‰). Solu t‰ynn‰ tai NULL.
     vector<Otus*> creaturesByBirth;   // pointterit samoihin luomisj‰rjestyksess‰.
+    int creaturesAlive;
 };
 
 #endif // MAAILMA_H

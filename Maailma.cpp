@@ -10,6 +10,7 @@ Maailma::Maailma(int width, int height) {
       creatures.back().push_back(NULL);
     }
   }
+  creaturesAlive = 0;
 }
 
 bool Maailma::createCreature(Otus* mother, Otus* father) {
@@ -18,6 +19,7 @@ bool Maailma::createCreature(Otus* mother, Otus* father) {
     if (withinBounds(whereTo) && whereTo!=mother->myCoord) {
       creatures[whereTo.x][whereTo.y]=new Otus(rgb{mother->RGBgenome.r, mother->RGBgenome.g, mother->RGBgenome.b},coordinates{whereTo.x, whereTo.y});
       creaturesByBirth.push_back(creatures[whereTo.x][whereTo.y]);
+      ++creaturesAlive;
       return true;
       // todo use father's genome too
     }
@@ -29,6 +31,7 @@ bool Maailma::createCreature(coordinates whereTo) { // create a red creature
   if (withinBounds(whereTo) && creatures[whereTo.x][whereTo.y]==NULL) {
     creatures[whereTo.x][whereTo.y]=new Otus(rgb{255, 0, 0}, coordinates {whereTo.x, whereTo.y});
     creaturesByBirth.push_back(creatures[whereTo.x][whereTo.y]);
+    ++creaturesAlive;
     return true;
     // todo use father's genome too
   }
@@ -39,6 +42,7 @@ bool Maailma::createCreature(rgb genome, coordinates whereTo) { // create a red 
   if (withinBounds(whereTo) && creatures[whereTo.x][whereTo.y]==NULL) {
     creatures[whereTo.x][whereTo.y]=new Otus(rgb{genome.r, genome.g, genome.b}, coordinates {whereTo.x, whereTo.y});
     creaturesByBirth.push_back(creatures[whereTo.x][whereTo.y]);
+    ++creaturesAlive;
     return true;
     // todo use father's genome too
   }
@@ -78,6 +82,7 @@ void Maailma::breathe(Otus* breather) {
   }
   if (breathingSpacesNeeded>0)
     breather->isAlive = false;
+    --creaturesAlive;
 }
 
 coordinates Maailma::findEmptyNeighbor(coordinates toThis) {

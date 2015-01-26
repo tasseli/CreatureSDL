@@ -1,6 +1,7 @@
 #include <SDL/SDL.h>    // n‰ytet‰‰n helppoa grafiikkaa
 #include <vector>       // tehd‰‰n otuksista joustavan kokoinen taulukko
 #include <time.h>       // k‰ytet‰‰n kelloa rand()in seedin‰
+#include <fstream>
 
 #include "Otus.h"       // oma otukseni
 #include "grafiikka.h"  // esimerkkisivulta kopioitu ja muokattu grafiikkarutiini
@@ -28,8 +29,8 @@ using namespace std;
 int main(int argc, char* argv[]) {
 
   // Logi, SDL init
-//  ofstream myfile;                // out-file-streamiasia
-//  myfile.open("otuslogi.txt");   // logataan kuulumisia kuten sijaintia
+  ofstream myfile;                // out-file-streamiasia
+  myfile.open("otuslogi.txt");   // logataan kuulumisia kuten sijaintia
   srand(time(0));                 // rand():in seedaus erolla nollakellonlyˆm‰‰n
   SDL_Surface *petrimalja;            // SDL:n k‰yttˆ‰, jota en tarkemmin ymm‰rr‰
   SDL_Event event;
@@ -87,12 +88,13 @@ int main(int argc, char* argv[]) {
         for(int i=0; i<maailma.creaturesByBirth.size(); i++) {
           maailma.creaturesByBirth[i]->relax();
           maailma.breathe(maailma.creaturesByBirth[i]);
+          myfile << "Otuksia elossa " << maailma.creaturesAlive << std::endl;
         }
       }
     }
   }
 //  myfile << "while p‰‰ttyi" << endl;
-//  myfile.close();
+  myfile.close();
   SDL_Quit();
 
   return 0;
