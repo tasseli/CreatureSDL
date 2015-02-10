@@ -1,6 +1,5 @@
 Nyt: 
-siirr‰ mainin while-loopit Maailman metodeiksi
-koita throw-catch -rakennetta
+koita try-catch-catch (throw heitt‰‰ takas) -rakennetta [call stack = mink‰ metodin sis‰ll‰ ollaan... stack!]
 tee getterit ja setterit privaattidatalle, jotta resize toimii oikeasti
 implementoi ominaisuuksia
 

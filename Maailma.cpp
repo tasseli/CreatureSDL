@@ -4,6 +4,7 @@
 Maailma::Maailma(int width, int height) {
   creatures = vector<vector<Otus*> >();
   creaturesByBirth = vector<Otus*>();
+  creaturesJustMoved = vector<Otus*>();
   for (int i = 0; i < width; ++i) {
     creatures.push_back(vector<Otus*>());
     for (int j = 0; j < height; ++j) {
@@ -69,20 +70,22 @@ bool Maailma::withinBounds(coordinates c) {
 }
 
 void Maailma::breathe(Otus* breather) {
-  short breathingSpacesNeeded = 5;
-  coordinates toThis = breather->myCoord;
-  for (int i=toThis.x-1; i<= toThis.x+1; ++i) {
-    for (int j=toThis.y-1; j<= toThis.y+1; ++j) {
-      if(withinBounds(coordinates{i,j}) && (toThis.x!=i||toThis.y!=j)) {
-        if (creatures[i][j] == NULL) {
-          breathingSpacesNeeded-=1;
+  if (MORTALITY == true) {
+    short breathingSpacesNeeded = 5;
+    coordinates toThis = breather->myCoord;
+    for (int i=toThis.x-1; i<= toThis.x+1; ++i) {
+      for (int j=toThis.y-1; j<= toThis.y+1; ++j) {
+        if(withinBounds(coordinates{i,j}) && (toThis.x!=i||toThis.y!=j)) {
+          if (creatures[i][j] == NULL) {
+            breathingSpacesNeeded-=1;
+          }
         }
       }
     }
+    if (breathingSpacesNeeded>0)
+      breather->isAlive = false;
+      --creaturesAlive;
   }
-  if (breathingSpacesNeeded>0)
-    breather->isAlive = false;
-    --creaturesAlive;
 }
 
 coordinates Maailma::findEmptyNeighbor(coordinates toThis) {
@@ -126,6 +129,7 @@ void Maailma::moveCreature (Otus* moved) { // muuttaa otuksen koordinaatteja
     creatures[wp.x][wp.y] = creatures[location.x][location.y];
     creatures[location.x][location.y] = NULL;
     creatures[wp.x][wp.y]->myCoord = coordinates(wp.x,wp.y);
+    creaturesJustMoved.push_back(moved);
   }
 }
 
@@ -142,6 +146,7 @@ void Maailma::doInitialBirths() {
 
 void Maailma::doMoves() {
       // Liikkumiset, latautumiset
+      creaturesJustMoved.clear();
       for(int i=0; i<creaturesByBirth.size(); i++) {
         if(creaturesByBirth[i]->isAlive) {
           moveCreature(creaturesByBirth[i]);
