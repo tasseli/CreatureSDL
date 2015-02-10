@@ -13,7 +13,7 @@ const short INIT_CREATURES  = 10  ;
 const short WAIT_AFTER      = 230  ;   // montako askelta otuksen on otettava palautuakseen, ennen kuin jaksaa taas lis‰‰nty‰
 const short WAIT_FIRST      = 130   ;   // mink‰ verran otukset on lis‰‰ntym‰tt‰ demon aluksi
 const bool  MORTALITY       = false ;   // tarviiko hengitt‰‰
-const bool  CLEAN_AFTER_MOVE= false  ;
+const bool  CLEAN_AFTER_MOVE= true  ;
 
 struct coordinates {
   int x;
