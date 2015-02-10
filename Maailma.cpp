@@ -4,7 +4,7 @@
 Maailma::Maailma(int width, int height) {
   creatures = vector<vector<Otus*> >();
   creaturesByBirth = vector<Otus*>();
-  creaturesJustMoved = vector<Otus*>();
+  creaturesJustMoved = vector<coordinates>();
   for (int i = 0; i < width; ++i) {
     creatures.push_back(vector<Otus*>());
     for (int j = 0; j < height; ++j) {
@@ -126,10 +126,10 @@ void Maailma::moveCreature (Otus* moved) { // muuttaa otuksen koordinaatteja
   coordinates directionWish(rand()%3-1,rand()%3-1);
   coordinates wp = location+directionWish;
   if (wp.x >= 0 && wp.x < WIDTH && wp.y >= 0 && wp.y < HEIGHT && creatures[wp.x][wp.y]==NULL) {
+    creaturesJustMoved.push_back(coordinates(location.x, location.y));
     creatures[wp.x][wp.y] = creatures[location.x][location.y];
     creatures[location.x][location.y] = NULL;
     creatures[wp.x][wp.y]->myCoord = coordinates(wp.x,wp.y);
-    creaturesJustMoved.push_back(moved);
   }
 }
 

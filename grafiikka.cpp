@@ -47,3 +47,23 @@ void drawCreatures(SDL_Surface *petrimalja, Maailma& maailma) { // piirret‰‰n pe
   if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
   SDL_Flip(petrimalja);
 }
+
+void drawEmptied(SDL_Surface *petrimalja, Maailma& maailma) {
+  int x, y;
+  if(SDL_MUSTLOCK(petrimalja)) {
+    if(SDL_LockSurface(petrimalja) < 0) return;
+  }
+
+  if (maailma.creaturesJustMoved.size()>0) {    // piirret‰‰n liikkuneiden paikoille valkeat
+    for (int i = maailma.creaturesJustMoved.size()-1; i>-1; i-- ) {
+      coordinates c = maailma.creaturesJustMoved[i];
+      coordinates coords_(c.x, (petrimalja->h-1-c.y)); //(petrimalja->h-1-c.y)
+      rgb rgb_(255, 255, 255);
+      setPixel(petrimalja, coords_, rgb_);
+    }
+  }
+
+  if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
+  SDL_Flip(petrimalja);
+
+}
