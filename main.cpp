@@ -61,7 +61,9 @@ int main(int argc, char* argv[]) {
         }
       }
       maailma.doMoves();
+      drawEmptied(petrimalja, maailma);
       maailma.doCopulations();
+      drawCreatures(petrimalja, maailma);
       maailma.doColorChanges(colorCounter);
     }
   }
