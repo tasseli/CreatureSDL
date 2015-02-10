@@ -1,12 +1,8 @@
 Nyt: 
-- korjaa koodi toimivaksi
-  - liikkuminen toimivaksi
-  - parittelu, jos jumalat suovat
-    - nopeuta parittelu
-      - Petrimalja skannataan kerran parittelualgoritmilla
-        - Algoritmi etsiParittelevat() ja alimetodi voikoParitella()
-      - Maailma tarjoaa maljan ja algoritmin metodissa 
-      - Liikkuminen k‰ytt‰‰ maljan dataa tiet‰‰kseen voiko
+siirr‰ mainin while-loopit Maailman metodeiksi
+koita throw-catch -rakennetta
+tee getterit ja setterit privaattidatalle, jotta resize toimii oikeasti
+implementoi ominaisuuksia
 
 Ominaisuuksia: tarkoituksenmuk liike, ruoka, ruokailu, energia, kuolema, halut,
 Pitk‰n t‰ht‰imen tavoitteita:

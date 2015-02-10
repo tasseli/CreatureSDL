@@ -22,6 +22,10 @@ public:
     coordinates findEmptyNeighbor(coordinates toThis);
     coordinates findNeighbor(coordinates toThis);
     void moveCreature (Otus* moved);
+    void doInitialBirths();
+    void doMoves();
+    void doCopulations();
+    void doColorChanges(int colorCounter);
     Otus* feelAround(Otus* feeler);
     void copulate(Otus* mother);
     /*void findAllProcreators();        // katsoo läpi kaikki Otukset Maailmassa, kutsuu checkProcreatingAbility() kullekin

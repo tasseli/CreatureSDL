@@ -118,8 +118,7 @@ coordinates Maailma::findNeighbor(coordinates toThis) {
   return coordinates(-3,-3);
 }
 
-void Maailma::moveCreature (Otus* moved) // muuttaa otuksen koordinaatteja
-{
+void Maailma::moveCreature (Otus* moved) { // muuttaa otuksen koordinaatteja
   coordinates location = moved->myCoord;
   coordinates directionWish(rand()%3-1,rand()%3-1);
   coordinates wp = location+directionWish;
@@ -128,6 +127,49 @@ void Maailma::moveCreature (Otus* moved) // muuttaa otuksen koordinaatteja
     creatures[location.x][location.y] = NULL;
     creatures[wp.x][wp.y]->myCoord = coordinates(wp.x,wp.y);
   }
+}
+
+void Maailma::doInitialBirths() {
+  // luodaan otukset
+  for (int i=creaturesByBirth.size(); i<INIT_CREATURES; i++) {
+    int x_syntyva = (317+3*i)%WIDTH;
+    int y_syntyva = (237+3*i)%HEIGHT;
+    if (creatures[x_syntyva][y_syntyva]==NULL) {
+      bool hmm = createCreature(rgb{(255-18*i)%256,(3+20*i)%256,220*i%256},coordinates{x_syntyva,y_syntyva});
+    }
+  }
+}
+
+void Maailma::doMoves() {
+      // Liikkumiset, latautumiset
+      for(int i=0; i<creaturesByBirth.size(); i++) {
+        if(creaturesByBirth[i]->isAlive) {
+          moveCreature(creaturesByBirth[i]);
+          if(creaturesByBirth[i]->waitSex>=1) {
+            --creaturesByBirth[i]->waitSex;
+          }
+        }
+      }
+}
+
+void Maailma::doCopulations() {
+      // Parittelut
+      int bz = creaturesByBirth.size();
+      for(int i=0; i<bz; i++) {
+        if(creaturesByBirth[i]->isAlive)
+          copulate(creaturesByBirth[i]);
+      }
+}
+
+void Maailma::doColorChanges(int colorCounter) {
+      // Värien palauttelu genotyyppiä kohti
+      if( colorCounter%10 == 9) {
+        for(int i=0; i<creaturesByBirth.size(); i++) {
+          creaturesByBirth[i]->relax();
+          breathe(creaturesByBirth[i]);
+//          myfile << "Otuksia elossa " << creaturesAlive << std::endl;
+        }
+      }
 }
 
 Otus* Maailma::feelAround(Otus* feeler) { // returns NULL if none around, else pointer to lusted

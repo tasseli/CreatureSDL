@@ -19,8 +19,7 @@ public:
   coordinates myCoord;
   int birthNumber;
   static int birthCounter;
-  //    int ika = 0;
-  int waitSex;   // selibaatin kesto, askelia
+  int waitSex;                        // selibaatin kesto, askelia
   bool isAlive;
 
   Otus (rgb RGBgenome_, coordinates whereTo);   // m‰‰r‰‰ v‰ri

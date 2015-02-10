@@ -43,15 +43,7 @@ int main(int argc, char* argv[]) {
 
   // Otuksien alkusynty
   Maailma maailma(WIDTH,HEIGHT);
-
-  // luodaan otukset
-  for (int i=maailma.creaturesByBirth.size(); i<INIT_CREATURES; i++) {
-    int x_syntyva = (317+3*i)%WIDTH;
-    int y_syntyva = (237+3*i)%HEIGHT;
-    if (maailma.creatures[x_syntyva][y_syntyva]==NULL) {
-      bool hmm = maailma.createCreature(rgb{(255-18*i)%256,(3+20*i)%256,220*i%256},coordinates{x_syntyva,y_syntyva});
-    }
-  }
+  maailma.doInitialBirths();
 
   drawBackground(petrimalja, maailma);
 
@@ -68,29 +60,9 @@ int main(int argc, char* argv[]) {
           break;
         }
       }
-      // Liikkumiset, latautumiset
-      for(int i=0; i<maailma.creaturesByBirth.size(); i++) {
-        if(maailma.creaturesByBirth[i]->isAlive) {
-          maailma.moveCreature(maailma.creaturesByBirth[i]);
-          if(maailma.creaturesByBirth[i]->waitSex>=1) {
-            --maailma.creaturesByBirth[i]->waitSex;
-          }
-        }
-      }
-      // Parittelut
-      int bz = maailma.creaturesByBirth.size();
-      for(int i=0; i<bz; i++) {
-        if(maailma.creaturesByBirth[i]->isAlive)
-          maailma.copulate(maailma.creaturesByBirth[i]);
-      }
-      // Värien palauttelu genotyyppiä kohti
-      if( colorCounter%10 == 9) {
-        for(int i=0; i<maailma.creaturesByBirth.size(); i++) {
-          maailma.creaturesByBirth[i]->relax();
-          maailma.breathe(maailma.creaturesByBirth[i]);
-          myfile << "Otuksia elossa " << maailma.creaturesAlive << std::endl;
-        }
-      }
+      maailma.doMoves();
+      maailma.doCopulations();
+      maailma.doColorChanges(colorCounter);
     }
   }
 //  myfile << "while päättyi" << endl;
