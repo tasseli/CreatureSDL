@@ -49,6 +49,7 @@ int main(int argc, char* argv[]) {
 
   while(!keypress) {  // Vars. looppi kunnes keskeytet‰‰n napilla
     for( int colorCounter = 0; colorCounter<10; ++colorCounter) { // hoidetaan relax()it joka 10. ticki
+      drawEmptied(petrimalja, maailma);
       drawCreatures(petrimalja, maailma);
       while(SDL_PollEvent(&event)) { // jos 1 painettu, loppu
         switch (event.type) {
@@ -61,7 +62,6 @@ int main(int argc, char* argv[]) {
         }
       }
       maailma.doMoves();
-      drawEmptied(petrimalja, maailma);
       maailma.doCopulations();
       drawCreatures(petrimalja, maailma);
       maailma.doColorChanges(colorCounter);
