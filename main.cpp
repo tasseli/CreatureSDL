@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
   Maailma maailma(WIDTH,HEIGHT);
   maailma.doInitialBirths();
 
-  drawBackground(petrimalja, maailma);
+  drawBackground(petrimalja);
 
   while(!keypress) {  // Vars. looppi kunnes keskeytet‰‰n napilla
     for( int colorCounter = 0; colorCounter<10; ++colorCounter) { // hoidetaan relax()it joka 10. ticki
@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
       }
       maailma.doMoves();
       maailma.doCopulations();
-      drawCreatures(petrimalja, maailma);
+//      drawCreatures(petrimalja, maailma);
       maailma.doColorChanges(colorCounter);
     }
   }
