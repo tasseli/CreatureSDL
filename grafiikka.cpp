@@ -29,6 +29,7 @@ void drawBackground(SDL_Surface *petrimalja, Maailma& maailma) {
   SDL_Flip(petrimalja);
 }
 
+
 void drawCreatures(SDL_Surface *petrimalja, Maailma& maailma) { // piirret‰‰n petrimalja, ja sitten joka otus vuorollaan sen p‰‰lle
   if(SDL_MUSTLOCK(petrimalja)) {
     if(SDL_LockSurface(petrimalja) < 0) return;
@@ -46,6 +47,7 @@ void drawCreatures(SDL_Surface *petrimalja, Maailma& maailma) { // piirret‰‰n pe
   if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
   SDL_Flip(petrimalja);
 }
+
 
 void drawEmptied(SDL_Surface *petrimalja, Maailma& maailma) {
   if (CLEAN_AFTER_MOVE == true) {
