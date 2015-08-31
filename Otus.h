@@ -1,7 +1,7 @@
 #ifndef OTUS_H_INCLUDED // ifndef-viidakkoni tarkoitus on t‰ll‰ hetkell‰ olla ylivarovainen, katsoa ett‰ joka headeria
 #define OTUS_H_INCLUDED // pyydet‰‰n kaikkialla miss‰ sit‰ haluttais k‰ytt‰‰, ja omat headerini on robusteja kutsumiselle mist‰ vain.
 
-#include <SDL/SDL.h>    // n‰ytet‰‰n helppoa grafiikkaa
+#include <SDL2/SDL.h>    // n‰ytet‰‰n helppoa grafiikkaa
 #include <vector>
 #include <cstddef>
 #include <iostream>

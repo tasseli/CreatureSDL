@@ -1,4 +1,3 @@
-#include <SDL/SDL.h>
 #include <vector>
 
 #include "Otus.h"
