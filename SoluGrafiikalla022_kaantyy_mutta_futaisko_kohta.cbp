@@ -29,10 +29,22 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add directory="T:/Program Files/CodeBlocks/MinGW/include" />
+			<Add directory="T:/SDL/SDL2-2.0.3/include" />
 		</Compiler>
+		<Linker>
+			<Add library="mingw32" />
+			<Add library="SDL.dll" />
+			<Add library="SDLmain" />
+			<Add library="user32" />
+			<Add library="gdi32" />
+			<Add library="winmm" />
+			<Add library="dxguid" />
+			<Add directory="T:/SDL/SDL2-2.0.3/i686-w64-mingw32/lib" />
+		</Linker>
 		<Unit filename="Maailma.cpp" />
 		<Unit filename="Maailma.h" />
 		<Unit filename="Otus.cpp" />
@@ -40,7 +52,6 @@
 		<Unit filename="const.h" />
 		<Unit filename="grafiikka.cpp" />
 		<Unit filename="grafiikka.h" />
-		<Unit filename="initMain.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
