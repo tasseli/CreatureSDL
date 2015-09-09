@@ -15,9 +15,9 @@ const short WAIT_FIRST      = 130   ;   // mink‰ verran otukset on lis‰‰ntym‰tt‰
 const bool  MORTALITY       = true  ;   // tarviiko hengitt‰‰
 const bool  CLEAN_AFTER_MOVE= true  ;
 
+
 struct coordinates {
-  int x;
-  int y;
+  int x, y;
   bool operator==(const coordinates& that) const { return x == that.x && y == that.y; }
   bool operator!=(const coordinates& that) const { return x != that.x || y != that.y; }
   coordinates operator+ (const coordinates& that) const { return coordinates (x + that.x, y + that.y); }
@@ -26,9 +26,7 @@ struct coordinates {
 };
 
 struct rgb {
-  int r;
-  int g;
-  int b;
+  int r, g, b;
   bool operator==(const rgb& that) const { return r == that.r && g == that.g && b == that.b; }
   bool operator!=(const rgb& that) const { return r != that.r || g != that.g || b != that.b; }
   rgb(int r_, int g_, int b_) {r = r_; g = g_; b = b_;}

@@ -16,15 +16,15 @@ using namespace std;
 class Critter
 {
 public:
+  Critter (rgb RGBgenome_, coordinates whereTo);   // m‰‰r‰‰ v‰ri
+
   rgb RGBfenotype;                    // fenotyyppi: n‰kyv‰, muuttuva ominaisuus
   rgb RGBgenome;                      // genotyyppi: otukseen koodattu, muuttumaton ominaisuus
   coordinates myCoord;
   int birthNumber;
   static int birthCounter;
-  int waitSex;                        // selibaatin kesto, askelia
-  bool isAlive;
-
-  Critter (rgb RGBgenome_, coordinates whereTo);   // m‰‰r‰‰ v‰ri
+  int   waitSex{WAIT_FIRST};                        // selibaatin kesto, askelia
+  bool  isAlive{true};
 
   void horny();           // ilmaise tunnetilaasi v‰rj‰ytym‰ll‰ keltaiseksi
   void freak();           // ilmaise itse‰si v‰rj‰ytym‰ll‰ siniseksi
