@@ -1,12 +1,12 @@
 Nyt:
-Debuggaa piirtämisen putsaus: ajattele läpi, keksi miks vilkkuu.
-Kirjoita ruutuun elävien otusten lkm
-implementoi ominaisuuksia
-Korjaa resize
-  koita try-catch-catch (throw heittää takas) -rakennetta [call stack = minkä metodin sisällä ollaan... stack!]
-  tee getterit ja setterit privaattidatalle, jotta resize toimii oikeasti
+	Debuggaa piirtämisen putsaus: ajattele läpi, keksi miks vilkkuu.
+	Kirjoita ruutuun elävien otusten lkm
+	implementoi ominaisuuksia
+	Korjaa resize
+	  koita try-catch-catch (throw heittää takas) -rakennetta [call stack = minkä metodin sisällä ollaan... stack!]
+	  tee getterit ja setterit privaattidatalle, jotta resize toimii oikeasti
 
-Ominaisuuksia: tarkoituksenmuk liike, ruoka, ruokailu, energia, halut,
-Pitkän tähtäimen tavoitteita:
-  Tekstitiedostojen opiskelu -> tiedoston lukeminen, randomin debuggaus, hiiren piilotus tai
-  interaktio, pausenäppäin, uskottava liikealgoritmi, tunteet, genomi, fenotyypit
+	Ominaisuuksia: tarkoituksenmuk liike, ruoka, ruokailu, energia, halut,
+	Pitkän tähtäimen tavoitteita:
+	  Tekstitiedostojen opiskelu -> tiedoston lukeminen, randomin debuggaus, hiiren piilotus tai
+	  interaktio, pausenäppäin, uskottava liikealgoritmi, tunteet, genomi, fenotyypit

@@ -7,7 +7,7 @@ int Critter::birthCounter = 0; // staticin alustus! Ei classiin.
 
 Critter::Critter (rgb RGBgenome_, coordinates whereTo) {
   ofstream myfile;                // out-file-streamiasia
-  myfile.open("otuslogi.txt", ios::app);   // logataan kuulumisia kuten sijaintia
+  myfile.open("CritterLog.txt", ios::app);   // logataan kuulumisia kuten sijaintia
   myCoord.x = whereTo.x;
   myCoord.y = whereTo.y;
   RGBfenotype = RGBgenome = RGBgenome_;
@@ -15,7 +15,7 @@ Critter::Critter (rgb RGBgenome_, coordinates whereTo) {
   birthNumber = birthCounter++;
   waitSex = WAIT_FIRST;
   isAlive = true;
-  myfile << "Synnyin! Rgb ";
+  myfile << "I'm born! Rgb ";
   myfile << std::setfill(' ') << std::setw(3) << RGBgenome_.r << ' ' << std::setw(3) << RGBgenome_.g << ' ' << std::setw(3) << RGBgenome_.b ;
   myfile << ", xy " << std::setw(3) << whereTo.x << " " << std::setw(3) << whereTo.y << std::endl;
   myfile.close();
