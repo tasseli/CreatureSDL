@@ -2,8 +2,8 @@
 #define CONST_H_INCLUDED
 
                                         // TODO: Jussin neuvo, omaks fileekseen
-const short WIDTH           = 75   ;   // Petrimaljan x
-const short HEIGHT          = 75   ;   // Petrimaljan y
+const short WIDTH           = 95   ;   // Petrimaljan x
+const short HEIGHT          = 95   ;   // Petrimaljan y
 const short BPP             = 4     ;
 const short DEPTH           = 32    ;
 const short GRAPH_ACCURACY  = 5     ;   // kuinka suurta eroa alkuper‰isen v‰rin poikkeamasta kunnioitetaan
@@ -12,7 +12,7 @@ const short MAX_CREATURES   = 20000 ;
 const short INIT_CREATURES  = 10    ;
 const short WAIT_AFTER      = 130   ;   // montako askelta otuksen on otettava palautuakseen, ennen kuin jaksaa taas lis‰‰nty‰
 const short WAIT_FIRST      = 130   ;   // mink‰ verran otukset on lis‰‰ntym‰tt‰ demon aluksi
-const bool  MORTALITY       = true ;   // tarviiko hengitt‰‰
+const bool  MORTALITY       = true  ;   // tarviiko hengitt‰‰
 const bool  CLEAN_AFTER_MOVE= false  ;
 
 struct coordinates {

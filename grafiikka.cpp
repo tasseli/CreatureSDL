@@ -1,11 +1,4 @@
-#include <SDL/SDL.h>
-#include <vector>
-
-#include "Otus.h"
 #include "grafiikka.h"
-#include "const.h"
-
-//#include <time.h>       // k‰ytet‰‰n kelloa rand()in seedin‰
 
 using namespace std;
 
@@ -25,8 +18,6 @@ void drawBackground(SDL_Surface *petrimalja) {
       setPixel(petrimalja, coordinates(x, y), rgb(255, 255, 255));
     }
   }
-  if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
-  SDL_Flip(petrimalja);
 }
 
 
@@ -43,9 +34,6 @@ void drawCreatures(SDL_Surface *petrimalja, Maailma& maailma) { // piirret‰‰n pe
       setPixel(petrimalja, coords_, rgb_);
     }
   }
-
-  if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
-  SDL_Flip(petrimalja);
 }
 
 
@@ -63,8 +51,5 @@ void drawEmptied(SDL_Surface *petrimalja, Maailma& maailma) {
         setPixel(petrimalja, coords_, rgb_);
       }
     }
-
-    if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
-    SDL_Flip(petrimalja);
   }
 }

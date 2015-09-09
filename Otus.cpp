@@ -1,5 +1,3 @@
-#include <iomanip>
-#include <fstream>
 #include "Otus.h"
 using std::setfill;
 using std::setw;

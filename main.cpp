@@ -2,7 +2,7 @@
 #include <vector>       // tehdään otuksista joustavan kokoinen taulukko
 #include <time.h>       // käytetään kelloa rand()in seedinä
 #include <fstream>
-
+#include <stdlib.h>     // srand()
 #include "Otus.h"       // oma otukseni
 #include "grafiikka.h"  // esimerkkisivulta kopioitu ja muokattu grafiikkarutiini
 
@@ -32,11 +32,11 @@ int main(int argc, char* argv[]) {
   ofstream myfile;                // out-file-streamiasia
   myfile.open("otuslogi.txt");   // logataan kuulumisia kuten sijaintia
   srand(time(0));                 // rand():in seedaus erolla nollakellonlyömään
-  SDL_Surface *petrimalja;            // SDL:n käyttöä, jota en tarkemmin ymmärrä
+  SDL_Surface *petrimalja = NULL;            // SDL:n käyttöä, jota en tarkemmin ymmärrä
   SDL_Event event;
   int keypress = 0;
-  if (SDL_Init(SDL_INIT_VIDEO) < 0) return 1;
-  if (!(petrimalja = SDL_SetVideoMode(WIDTH, HEIGHT, DEPTH, SDL_HWSURFACE))) {   //Asetettu Otus.h:ssa - mut mitähän: SDL_FULLSCREEN| tekee. Ahaa. Flagit tulee |:illa eroteltuina vikaks.
+  if (SDL_Init(SDL_INIT_EVERYTHING) < 0) return 1;
+  if (!(petrimalja = SDL_SetVideoMode(WIDTH, HEIGHT, DEPTH, SDL_SWSURFACE))) {   //Asetettu Otus.h:ssa - mut mitähän: SDL_FULLSCREEN| tekee. Ahaa. Flagit tulee |:illa eroteltuina vikaks.
     SDL_Quit();
     return 1;
   }
@@ -46,11 +46,20 @@ int main(int argc, char* argv[]) {
   maailma.doInitialBirths();
 
   drawBackground(petrimalja);
+  if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
+  SDL_Flip(petrimalja);
+
 
   while(!keypress) {  // Vars. looppi kunnes keskeytetään napilla
     for( int colorCounter = 0; colorCounter<10; ++colorCounter) { // hoidetaan relax()it joka 10. ticki
       drawEmptied(petrimalja, maailma);
+      if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
+      SDL_Flip(petrimalja);
+
       drawCreatures(petrimalja, maailma);
+      if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
+      SDL_Flip(petrimalja);
+
       while(SDL_PollEvent(&event)) { // jos 1 painettu, loppu
         switch (event.type) {
           case SDL_QUIT:

@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Maailma.h"
 
 Maailma::Maailma(int width, int height) {
@@ -140,9 +139,9 @@ void Maailma::doInitialBirths() {
   // luodaan otukset
   for (int i=creaturesByBirth.size(); i<INIT_CREATURES; i++) {
     int x_syntyva = (317+3*i)%WIDTH;
-    int y_syntyva = (237+3*i)%HEIGHT;
+    int y_syntyva = (237+2*i)%HEIGHT;
     if (creatures[x_syntyva][y_syntyva]==NULL) {
-      createCreature(rgb((255-18*i)%256,(3+20*i)%256,220*i%256),coordinates(x_syntyva,y_syntyva));
+      createCreature(rgb((215-24*i)%256,(3+15*i)%256,(255+252*i)%256),coordinates(x_syntyva,y_syntyva));
     }
   }
 }

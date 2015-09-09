@@ -2,10 +2,11 @@
 
 class Otus;
 
-#include <SDL/SDL.h>
 #include <vector>
-
+#include "SDL/SDL.h"
 #include "Maailma.h"
+#include "Otus.h"
+#include "const.h"
 
 using namespace std;
 
