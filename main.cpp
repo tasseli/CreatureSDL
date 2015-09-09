@@ -1,29 +1,27 @@
-#include <SDL/SDL.h>    // n‰ytet‰‰n helppoa grafiikkaa
-#include <vector>       // tehd‰‰n otuksista joustavan kokoinen taulukko
-#include <time.h>       // k‰ytet‰‰n kelloa rand()in seedin‰
 #include <fstream>
-#include <stdlib.h>     // srand()
-#include "Otus.h"       // oma otukseni
-#include "grafiikka.h"  // esimerkkisivulta kopioitu ja muokattu grafiikkarutiini
-
 #include <iostream>
-//#include <fstream>
+#include <vector>
+#include <stdlib.h>     // srand()
+#include <time.h>       // seeding rand()
+#include "SDL/SDL.h"    // show easy graphics
+
+#include "Critter.h"       // my creatures <3
+#include "graphics.h"  // graphic routines copied and edited
+
 
 using namespace std;
 
 
 /*****
+  Aim: Draw a plate filled with n of INIT_CREATURES amount of Critters. They are red when born. They look around for other
+  members for their species, and try to mate with the most interesting one. They freak() when managing this, which makes them
+  blue temporarily. If they can't release themselves after finding a potential partner, they're horny() - turning yellow. for
+  a while. MAX_CREATURES filling up will induce this.
 
-//
-  Tavoite: piirret‰‰n 640x480 -kokoinen valkoinen petrimalja. Sen keskelt‰ aloittaa INIT_CREATURES:n mukainen m‰‰r‰ Otuksia,
-  jotka ovat syntyess‰‰n punas‰vyisi‰. Otukset havainnoivat samalle kohdalle sattuneita lajitovereitaan, ja pyrkiv‰t parittelemaan
-  vieh‰tt‰vimm‰n kanssa. Onnistunut lis‰‰ntyminen saa otuksen friikkaamaan (muuttumaan siniseksi), ja lis‰‰ntymiseen johtamaton
-  parittelu (MAX_CREATURES tultua t‰yteen) tekee ne hornyiksi (keltaisiksi). V‰ri palautuu otuksen PALAUDU-keston aikana sen omaksi.
-
-  Otus perii v‰rins‰ v‰limuotona vanhempiensa genomeista.
-  Otuksella on v‰ri ja koordinaatit, ja se liikkuu ~satunnaisesti. Reunalla otus p‰‰tt‰‰ olla kulkematta maljan sein‰n yli.
-  Mainissa vuoroin piirret‰‰n, liikutellaan, tunnustellaan ja paritellaan otuksia. '1' lopettaa simulaation.
-****/
+  A Critter will inherit their color as a compromise of their parents' colors.
+  A Critter has a genetic color, a temporary color (fenotype), and it moves ~randomly. It avoids crossing borders of its world.
+  In main() the turn alternates among moving, feeling and mating. '1' ends the simulation.
+*****/
 
 
 int main(int argc, char* argv[]) {
@@ -36,13 +34,13 @@ int main(int argc, char* argv[]) {
   SDL_Event event;
   int keypress = 0;
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0) return 1;
-  if (!(petrimalja = SDL_SetVideoMode(WIDTH, HEIGHT, DEPTH, SDL_SWSURFACE))) {   //Asetettu Otus.h:ssa - mut mit‰h‰n: SDL_FULLSCREEN| tekee. Ahaa. Flagit tulee |:illa eroteltuina vikaks.
+  if (!(petrimalja = SDL_SetVideoMode(WIDTH, HEIGHT, DEPTH, SDL_SWSURFACE))) {   //Asetettu Critter.h:ssa - mut mit‰h‰n: SDL_FULLSCREEN| tekee. Ahaa. Flagit tulee |:illa eroteltuina vikaks.
     SDL_Quit();
     return 1;
   }
 
   // Otuksien alkusynty
-  Maailma maailma(WIDTH,HEIGHT);
+  World maailma(WIDTH,HEIGHT);
   maailma.doInitialBirths();
 
   drawBackground(petrimalja);
@@ -56,7 +54,7 @@ int main(int argc, char* argv[]) {
       if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
       SDL_Flip(petrimalja);
 
-      drawCreatures(petrimalja, maailma);
+      drawCritters(petrimalja, maailma);
       if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
       SDL_Flip(petrimalja);
 
@@ -72,7 +70,7 @@ int main(int argc, char* argv[]) {
       }
       maailma.doMoves();
       maailma.doCopulations();
-//      drawCreatures(petrimalja, maailma);
+//      drawCritters(petrimalja, maailma);
       maailma.doColorChanges(colorCounter);
     }
   }

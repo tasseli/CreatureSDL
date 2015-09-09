@@ -44,13 +44,13 @@
 			<Add library="dxguid" />
 			<Add directory="T:/SDL/SDL2-2.0.3/i686-w64-mingw32/lib" />
 		</Linker>
-		<Unit filename="Maailma.cpp" />
-		<Unit filename="Maailma.h" />
-		<Unit filename="Otus.cpp" />
-		<Unit filename="Otus.h" />
+		<Unit filename="Critter.cpp" />
+		<Unit filename="Critter.h" />
+		<Unit filename="World.cpp" />
+		<Unit filename="World.h" />
 		<Unit filename="const.h" />
-		<Unit filename="grafiikka.cpp" />
-		<Unit filename="grafiikka.h" />
+		<Unit filename="graphics.cpp" />
+		<Unit filename="graphics.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
