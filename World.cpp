@@ -1,11 +1,11 @@
-#include "Maailma.h"
+#include "World.h"
 
-Maailma::Maailma(int width, int height) {
-  creatures = vector<vector<Otus*> >();
-  creaturesByBirth = vector<Otus*>();
+World::World(int width, int height) {
+  creatures = vector<vector<Critter*> >();
+  creaturesByBirth = vector<Critter*>();
   creaturesJustMoved = vector<coordinates>();
   for (int i = 0; i < width; ++i) {
-    creatures.push_back(vector<Otus*>());
+    creatures.push_back(vector<Critter*>());
     for (int j = 0; j < height; ++j) {
       creatures.back().push_back(NULL);
     }
@@ -13,11 +13,11 @@ Maailma::Maailma(int width, int height) {
   creaturesAlive = 0;
 }
 
-bool Maailma::createCreature(Otus* mother, Otus* father) {
+bool World::createCritter(Critter* mother, Critter* father) {
   if(mother->isAlive && father->isAlive) {
     coordinates whereTo = findEmptyNeighbor(mother->myCoord);
     if (withinBounds(whereTo) && whereTo!=mother->myCoord) {
-      creatures[whereTo.x][whereTo.y]=new Otus(rgb(mother->RGBgenome.r, mother->RGBgenome.g, mother->RGBgenome.b),coordinates(whereTo.x, whereTo.y));
+      creatures[whereTo.x][whereTo.y]=new Critter(rgb(mother->RGBgenome.r, mother->RGBgenome.g, mother->RGBgenome.b),coordinates(whereTo.x, whereTo.y));
       creaturesByBirth.push_back(creatures[whereTo.x][whereTo.y]);
       ++creaturesAlive;
       return true;
@@ -28,9 +28,9 @@ bool Maailma::createCreature(Otus* mother, Otus* father) {
   return false;
 }
 
-bool Maailma::createCreature(coordinates whereTo) { // create a red creature
+bool World::createCritter(coordinates whereTo) { // create a red creature
   if (withinBounds(whereTo) && creatures[whereTo.x][whereTo.y]==NULL) {
-    creatures[whereTo.x][whereTo.y]=new Otus(rgb(255, 0, 0), coordinates(whereTo.x, whereTo.y));
+    creatures[whereTo.x][whereTo.y]=new Critter(rgb(255, 0, 0), coordinates(whereTo.x, whereTo.y));
     creaturesByBirth.push_back(creatures[whereTo.x][whereTo.y]);
     ++creaturesAlive;
     return true;
@@ -40,9 +40,9 @@ bool Maailma::createCreature(coordinates whereTo) { // create a red creature
   return false;
 }
 
-bool Maailma::createCreature(rgb genome, coordinates whereTo) { // create a red creature
+bool World::createCritter(rgb genome, coordinates whereTo) { // create a red creature
   if (withinBounds(whereTo) && creatures[whereTo.x][whereTo.y]==NULL) {
-    creatures[whereTo.x][whereTo.y]=new Otus(rgb(genome.r, genome.g, genome.b), coordinates(whereTo.x, whereTo.y));
+    creatures[whereTo.x][whereTo.y]=new Critter(rgb(genome.r, genome.g, genome.b), coordinates(whereTo.x, whereTo.y));
     creaturesByBirth.push_back(creatures[whereTo.x][whereTo.y]);
     ++creaturesAlive;
     return true;
@@ -52,7 +52,7 @@ bool Maailma::createCreature(rgb genome, coordinates whereTo) { // create a red 
   return false;
 }
 
-bool Maailma::nextTo(coordinates myCoords, coordinates herCoords) {
+bool World::nextTo(coordinates myCoords, coordinates herCoords) {
   if (myCoords != herCoords) {
     if (myCoords.x+1 == herCoords.x || myCoords.x == herCoords.x || myCoords.x-1 == herCoords.x) {
       if (myCoords.y+1 == herCoords.y || myCoords.y == herCoords.y || myCoords.y-1 == herCoords.y) {
@@ -64,14 +64,14 @@ bool Maailma::nextTo(coordinates myCoords, coordinates herCoords) {
   return false;
 }
 
-bool Maailma::withinBounds(coordinates c) {
+bool World::withinBounds(coordinates c) {
   if((c.x >= 0) && (c.x < WIDTH) && (c.y >= 0) && (c.y < HEIGHT)) {
     return true;
   }
   return false;
 }
 
-void Maailma::breathe(Otus* breather) {
+void World::breathe(Critter* breather) {
   if (MORTALITY == true) {
     short breathingSpacesNeeded = 5;
     coordinates toThis = breather->myCoord;
@@ -90,7 +90,7 @@ void Maailma::breathe(Otus* breather) {
   }
 }
 
-coordinates Maailma::findEmptyNeighbor(coordinates toThis) {
+coordinates World::findEmptyNeighbor(coordinates toThis) {
   for (int i=toThis.x-1; i<= toThis.x+1; ++i) {
     for (int j=toThis.y-1; j<= toThis.y+1; ++j) {
       if(withinBounds(coordinates(i,j)) && (toThis.x!=i||toThis.y!=j)) {
@@ -109,7 +109,7 @@ coordinates Maailma::findEmptyNeighbor(coordinates toThis) {
   return coordinates(-3,-3);
 }
 
-coordinates Maailma::findNeighbor(coordinates toThis) {
+coordinates World::findNeighbor(coordinates toThis) {
   for (int i=toThis.x-1; i<= toThis.x+1; ++i) {
     for (int j=toThis.y-1; j<= toThis.y+1; ++j) {
       if(withinBounds(coordinates(i,j)) && (toThis.x!=i||toThis.y!=j)) {
@@ -123,7 +123,7 @@ coordinates Maailma::findNeighbor(coordinates toThis) {
   return coordinates(-3,-3);
 }
 
-void Maailma::moveCreature (Otus* moved) { // muuttaa otuksen koordinaatteja
+void World::moveCritter (Critter* moved) { // muuttaa otuksen koordinaatteja
   coordinates location = moved->myCoord;
   coordinates directionWish(rand()%3-1,rand()%3-1);
   coordinates wp = location+directionWish;
@@ -135,23 +135,23 @@ void Maailma::moveCreature (Otus* moved) { // muuttaa otuksen koordinaatteja
   }
 }
 
-void Maailma::doInitialBirths() {
+void World::doInitialBirths() {
   // luodaan otukset
   for (int i=creaturesByBirth.size(); i<INIT_CREATURES; i++) {
     int x_syntyva = (317+3*i)%WIDTH;
     int y_syntyva = (237+2*i)%HEIGHT;
     if (creatures[x_syntyva][y_syntyva]==NULL) {
-      createCreature(rgb((215-24*i)%256,(3+15*i)%256,(255+252*i)%256),coordinates(x_syntyva,y_syntyva));
+      createCritter(rgb((215-24*i)%256,(3+15*i)%256,(255+252*i)%256),coordinates(x_syntyva,y_syntyva));
     }
   }
 }
 
-void Maailma::doMoves() {
+void World::doMoves() {
       // Liikkumiset, latautumiset
       creaturesJustMoved.clear();
       for(unsigned int i=0; i<creaturesByBirth.size(); i++) {
         if(creaturesByBirth[i]->isAlive) {
-          moveCreature(creaturesByBirth[i]);
+          moveCritter(creaturesByBirth[i]);
           if(creaturesByBirth[i]->waitSex>=1) {
             --creaturesByBirth[i]->waitSex;
           }
@@ -159,7 +159,7 @@ void Maailma::doMoves() {
       }
 }
 
-void Maailma::doCopulations() {
+void World::doCopulations() {
       // Parittelut
       int bz = creaturesByBirth.size();
       for(int i=0; i<bz; i++) {
@@ -168,7 +168,7 @@ void Maailma::doCopulations() {
       }
 }
 
-void Maailma::doColorChanges(int colorCounter) {
+void World::doColorChanges(int colorCounter) {
       // V‰rien palauttelu genotyyppi‰ kohti
       if( colorCounter%10 == 9) {
         for(unsigned int i=0; i<creaturesByBirth.size(); i++) {
@@ -179,7 +179,7 @@ void Maailma::doColorChanges(int colorCounter) {
       }
 }
 
-Otus* Maailma::feelAround(Otus* feeler) { // returns NULL if none around, else pointer to lusted
+Critter* World::feelAround(Critter* feeler) { // returns NULL if none around, else pointer to lusted
   for (unsigned int i=0; i<creaturesByBirth.size(); i++) {
     int j = (int)i;
     if (j != feeler->birthNumber) {
@@ -192,12 +192,12 @@ Otus* Maailma::feelAround(Otus* feeler) { // returns NULL if none around, else p
   return NULL;
 }
 
-void Maailma::copulate(Otus* mommy) {
-  Otus* daddy = feelAround(mommy);
+void World::copulate(Critter* mommy) {
+  Critter* daddy = feelAround(mommy);
   if (daddy != NULL && mommy->waitSex == 0 && creaturesByBirth.size()<MAX_CREATURES) {
-    bool didIt = createCreature(mommy, daddy);
+    bool didIt = createCritter(mommy, daddy);
     if (didIt==true) {
-      mommy->freak();            // ilmaistaan himo hornyym‰ll‰. Otus on vasta siis lˆyt‰nyt himoittavan tyypin, ja muuttuu keltaiseksi.
+      mommy->freak();            // ilmaistaan himo hornyym‰ll‰. Critter on vasta siis lˆyt‰nyt himoittavan tyypin, ja muuttuu keltaiseksi.
       daddy->freak();    // puolisokin on kuuma parittelusta. Vastaanottavan osapuolen palautumisaikaa ei kuitenkaan s‰‰det‰, kaksineuvoisuus <3
       mommy->waitSex += WAIT_AFTER;
     }
@@ -205,11 +205,11 @@ void Maailma::copulate(Otus* mommy) {
 }
 
 /*
-void Maailma::findAllProcreators() {              // katsoo l‰pi kaikki Otukset Maailmassa, kutsuu checkProcreatingAbility() kullekin
+void World::findAllProcreators() {              // katsoo l‰pi kaikki Otukset Worldssa, kutsuu checkProcreatingAbility() kullekin
 
 }
 
-Otus* Maailma::checkProcreatingAbility() {        // palauttaa ensimm‰isen parittelumahdollisuuden tai NULL
+Critter* World::checkProcreatingAbility() {        // palauttaa ensimm‰isen parittelumahdollisuuden tai NULL
 
 }*/
 

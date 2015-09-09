@@ -1,7 +1,7 @@
-#ifndef OTUS_H_INCLUDED // ifndef-viidakkoni tarkoitus on t‰ll‰ hetkell‰ olla ylivarovainen, katsoa ett‰ joka headeria
-#define OTUS_H_INCLUDED // pyydet‰‰n kaikkialla miss‰ sit‰ haluttais k‰ytt‰‰, ja omat headerini on robusteja kutsumiselle mist‰ vain.
+#ifndef CRITTER_H_INCLUDED // ifndef-viidakkoni tarkoitus on t‰ll‰ hetkell‰ olla ylivarovainen, katsoa ett‰ joka headeria
+#define CRITTER_H_INCLUDED // pyydet‰‰n kaikkialla miss‰ sit‰ haluttais k‰ytt‰‰, ja omat headerini on robusteja kutsumiselle mist‰ vain.
 
-#include "SDL/SDL.h"    // n‰ytet‰‰n helppoa grafiikkaa
+#include "SDL/SDL.h"    // n‰ytet‰‰n helppoa graphicsa
 #include <vector>
 #include <cstddef>
 #include <iostream>
@@ -13,7 +13,7 @@
 
 using namespace std;
 
-class Otus//: public Maailma
+class Critter
 {
 public:
   rgb RGBfenotype;                    // fenotyyppi: n‰kyv‰, muuttuva ominaisuus
@@ -24,7 +24,7 @@ public:
   int waitSex;                        // selibaatin kesto, askelia
   bool isAlive;
 
-  Otus (rgb RGBgenome_, coordinates whereTo);   // m‰‰r‰‰ v‰ri
+  Critter (rgb RGBgenome_, coordinates whereTo);   // m‰‰r‰‰ v‰ri
 
   void horny();           // ilmaise tunnetilaasi v‰rj‰ytym‰ll‰ keltaiseksi
   void freak();           // ilmaise itse‰si v‰rj‰ytym‰ll‰ siniseksi
@@ -34,4 +34,4 @@ public:
 
 };
 
-#endif // OTUS_H_INCLUDED
+#endif // CRITTER_H_INCLUDED

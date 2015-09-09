@@ -1,10 +1,11 @@
-#include "Otus.h"
+#include "Critter.h"
+
 using std::setfill;
 using std::setw;
 
-int Otus::birthCounter = 0; // staticin alustus! Ei classiin.
+int Critter::birthCounter = 0; // staticin alustus! Ei classiin.
 
-Otus::Otus (rgb RGBgenome_, coordinates whereTo) {
+Critter::Critter (rgb RGBgenome_, coordinates whereTo) {
   ofstream myfile;                // out-file-streamiasia
   myfile.open("otuslogi.txt", ios::app);   // logataan kuulumisia kuten sijaintia
   myCoord.x = whereTo.x;
@@ -20,19 +21,19 @@ Otus::Otus (rgb RGBgenome_, coordinates whereTo) {
   myfile.close();
 }
 
-void Otus::horny() { // muututaan keltaiseksi (Otuksien syntyvärit on kirjoittaessani punasävyisiä)
+void Critter::horny() { // muututaan keltaiseksi (Otuksien syntyvärit on kirjoittaessani punasävyisiä)
   RGBfenotype.r =255;
   RGBfenotype.g =255;
   RGBfenotype.b =0;
 }
 
-void Otus::freak() { // muututaan siniseksi (Otuksien syntyvärit on kirjoittaessani punasävyisiä)
+void Critter::freak() { // muututaan siniseksi (Otuksien syntyvärit on kirjoittaessani punasävyisiä)
   RGBfenotype.r =0;
   RGBfenotype.g =0;
   RGBfenotype.b =255;
 }
 
-void Otus::relax() {  // fenotyypin implementaatiota
+void Critter::relax() {  // fenotyypin implementaatiota
   if (RGBfenotype.r!=RGBgenome.r) {
     RGBfenotype.r = towardsOwnColor(RGBfenotype.r, RGBgenome.r);
   }
@@ -44,7 +45,7 @@ void Otus::relax() {  // fenotyypin implementaatiota
   }
 }
 
-int Otus::towardsOwnColor(int colorNow, int normalColor) {  // fenotyypin implementaatiota
+int Critter::towardsOwnColor(int colorNow, int normalColor) {  // fenotyypin implementaatiota
   int returnStep = 25;
   if (abs(colorNow - normalColor)<GRAPH_ACCURACY || abs(colorNow - normalColor)<returnStep) {
     return normalColor;

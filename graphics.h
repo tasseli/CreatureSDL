@@ -1,11 +1,11 @@
 #pragma once
 
-class Otus;
+class Critter;
 
 #include <vector>
 #include "SDL/SDL.h"
-#include "Maailma.h"
-#include "Otus.h"
+#include "World.h"
+#include "Critter.h"
 #include "const.h"
 
 using namespace std;
@@ -13,6 +13,6 @@ using namespace std;
 void setPixel(SDL_Surface*, coordinates coords_, rgb rgb_);
 
 void drawBackground(SDL_Surface*);
-void drawCreatures (SDL_Surface*, Maailma& maailma);
-void drawEmptied   (SDL_Surface*, Maailma& maailma);
+void drawCritters (SDL_Surface*, World& maailma);
+void drawEmptied   (SDL_Surface*, World& maailma);
 

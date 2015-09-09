@@ -1,4 +1,4 @@
-#include "grafiikka.h"
+#include "graphics.h"
 
 using namespace std;
 
@@ -13,7 +13,7 @@ void drawBackground(SDL_Surface *petrimalja) {
   if(SDL_MUSTLOCK(petrimalja)) {
     if(SDL_LockSurface(petrimalja) < 0) return;
   }
-  for(y = (petrimalja->h-1); y > -1; y-- ) {  // Alustetaan petrimalta, Otusten alusta eli screeni, valkoiseksi
+  for(y = (petrimalja->h-1); y > -1; y-- ) {  // Alustetaan petrimalta, Critterten alusta eli screeni, valkoiseksi
     for( x = 0; x < petrimalja->w; x++ ) {
       setPixel(petrimalja, coordinates(x, y), rgb(255, 255, 255));
     }
@@ -21,7 +21,7 @@ void drawBackground(SDL_Surface *petrimalja) {
 }
 
 
-void drawCreatures(SDL_Surface *petrimalja, Maailma& maailma) { // piirret‰‰n petrimalja, ja sitten joka otus vuorollaan sen p‰‰lle
+void drawCritters(SDL_Surface *petrimalja, World& maailma) { // piirret‰‰n petrimalja, ja sitten joka otus vuorollaan sen p‰‰lle
   if(SDL_MUSTLOCK(petrimalja)) {
     if(SDL_LockSurface(petrimalja) < 0) return;
   }
@@ -37,7 +37,7 @@ void drawCreatures(SDL_Surface *petrimalja, Maailma& maailma) { // piirret‰‰n pe
 }
 
 
-void drawEmptied(SDL_Surface *petrimalja, Maailma& maailma) {
+void drawEmptied(SDL_Surface *petrimalja, World& maailma) {
   if (CLEAN_AFTER_MOVE == true) {
     if(SDL_MUSTLOCK(petrimalja)) {
       if(SDL_LockSurface(petrimalja) < 0) return;
