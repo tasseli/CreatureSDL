@@ -1,19 +1,19 @@
-#ifndef CONST_H_INCLUDED
-#define CONST_H_INCLUDED
-
-                                        // TODO: Jussin neuvo, omaks fileekseen
-const short WIDTH           = 95   ;   // Petrimaljan x
-const short HEIGHT          = 95   ;   // Petrimaljan y
+#pragma once
+                                        // TODO: Jussin neuvo ett‰ laittaa t‰n omaks fileekseen
+const short WIDTH           = 640    ;   // Petrimaljan x
+const short HEIGHT          = 480    ;   // Petrimaljan y
 const short BPP             = 4     ;
 const short DEPTH           = 32    ;
-const short GRAPH_ACCURACY  = 5     ;   // kuinka suurta eroa alkuper‰isen v‰rin poikkeamasta kunnioitetaan
+const short COLOR_ACCURACY  = 5     ;   // kuinka suurta eroa alkuper‰isen v‰rin poikkeamasta kunnioitetaan
 
-const short MAX_CREATURES   = 20000 ;
+const short MAX_CREATURES   = 2000 ;
 const short INIT_CREATURES  = 10    ;
+const short WAIT_FIRST      = 150   ;   // mink‰ verran otukset on lis‰‰ntym‰tt‰ demon aluksi
 const short WAIT_AFTER      = 130   ;   // montako askelta otuksen on otettava palautuakseen, ennen kuin jaksaa taas lis‰‰nty‰
-const short WAIT_FIRST      = 130   ;   // mink‰ verran otukset on lis‰‰ntym‰tt‰ demon aluksi
+const short RETURN_STEP     = 25    ;
 const bool  MORTALITY       = true  ;   // tarviiko hengitt‰‰
-const bool  CLEAN_AFTER_MOVE= true  ;
+const short BREATHING_SPACE_NEEDED  = 6;
+const bool  CLEAN_AFTER_MOVE        = true  ;
 
 
 struct coordinates {
@@ -33,4 +33,3 @@ struct rgb {
   rgb() {}
 };
 
-#endif // CONST_H_INCLUDED

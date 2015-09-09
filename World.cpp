@@ -10,45 +10,39 @@ World::World(int width, int height) {
       creatures.back().push_back(NULL);
     }
   }
-  creaturesAlive = 0;
 }
 
-bool World::createCritter(Critter* mother, Critter* father) {
-  if(mother->isAlive && father->isAlive) {
+bool World::createCritter(Critter* mother, Critter* father) {   // use parents' colors evenly
+  if(MORTALITY==false || (mother->isAlive && father->isAlive)) {
     coordinates whereTo = findEmptyNeighbor(mother->myCoord);
     if (withinBounds(whereTo) && whereTo!=mother->myCoord) {
-      creatures[whereTo.x][whereTo.y]=new Critter(rgb(mother->RGBgenome.r, mother->RGBgenome.g, mother->RGBgenome.b),coordinates(whereTo.x, whereTo.y));
+      creatures[whereTo.x][whereTo.y]=new Critter(rgb((mother->RGBgenome.r+father->RGBgenome.r)/2, (mother->RGBgenome.g+father->RGBgenome.g)/2,
+                                                      (mother->RGBgenome.b+father->RGBgenome.b)/2), coordinates(whereTo.x, whereTo.y));
       creaturesByBirth.push_back(creatures[whereTo.x][whereTo.y]);
       ++creaturesAlive;
       return true;
-      // todo use father's genome too
     }
   }
-  // else
-  return false;
+  return false;  // (else)
 }
 
-bool World::createCritter(coordinates whereTo) { // create a red creature
+bool World::createCritter(coordinates whereTo) {                // create a red creature
   if (withinBounds(whereTo) && creatures[whereTo.x][whereTo.y]==NULL) {
     creatures[whereTo.x][whereTo.y]=new Critter(rgb(255, 0, 0), coordinates(whereTo.x, whereTo.y));
     creaturesByBirth.push_back(creatures[whereTo.x][whereTo.y]);
     ++creaturesAlive;
     return true;
-    // todo use father's genome too
   }
-  // else
   return false;
 }
 
-bool World::createCritter(rgb genome, coordinates whereTo) { // create a red creature
+bool World::createCritter(rgb genome, coordinates whereTo) {    // create a specified color creature
   if (withinBounds(whereTo) && creatures[whereTo.x][whereTo.y]==NULL) {
     creatures[whereTo.x][whereTo.y]=new Critter(rgb(genome.r, genome.g, genome.b), coordinates(whereTo.x, whereTo.y));
     creaturesByBirth.push_back(creatures[whereTo.x][whereTo.y]);
     ++creaturesAlive;
     return true;
-    // todo use father's genome too
   }
-  //else
   return false;
 }
 
@@ -59,7 +53,6 @@ bool World::nextTo(coordinates myCoords, coordinates herCoords) {
         return true;
       }
     }
-    else return false;
   }
   return false;
 }
@@ -73,7 +66,7 @@ bool World::withinBounds(coordinates c) {
 
 void World::breathe(Critter* breather) {
   if (MORTALITY == true) {
-    short breathingSpacesNeeded = 5;
+    short breathingSpacesNeeded = BREATHING_SPACE_NEEDED;
     coordinates toThis = breather->myCoord;
     for (int i=toThis.x-1; i<= toThis.x+1; ++i) {
       for (int j=toThis.y-1; j<= toThis.y+1; ++j) {
@@ -86,6 +79,7 @@ void World::breathe(Critter* breather) {
     }
     if (breathingSpacesNeeded>0)
       breather->isAlive = false;
+      breather->rot();
       --creaturesAlive;
   }
 }
@@ -141,7 +135,8 @@ void World::doInitialBirths() {
     int x_syntyva = (317+3*i)%WIDTH;
     int y_syntyva = (237+2*i)%HEIGHT;
     if (creatures[x_syntyva][y_syntyva]==NULL) {
-      createCritter(rgb((215-24*i)%256,(3+15*i)%256,(255+252*i)%256),coordinates(x_syntyva,y_syntyva));
+//      createCritter(rgb((215-24*i)%256,(3+15*i)%256,(255+252*i)%256),coordinates(x_syntyva,y_syntyva));
+      createCritter(rgb((215-25*i)%256,(3+15*i)%256,(255+252*i)%256),coordinates(x_syntyva,y_syntyva));
     }
   }
 }

@@ -3,47 +3,54 @@
 using std::setfill;
 using std::setw;
 
-int Critter::birthCounter = 0; // staticin alustus! Ei classiin.
+int Critter::birthCounter = 0;                                  // Initializing a static. Can't do in header.
 
 Critter::Critter (rgb RGBgenome_, coordinates whereTo) : RGBfenotype{RGBgenome_}, RGBgenome{RGBgenome_}, myCoord{whereTo} {
-//  r_askel = g_askel = b_askel = 0;      // tulevat tarpeelliseks kun implementoidaan fenotyyppi
   birthNumber = birthCounter++;
 
-  ofstream myfile;                // out-file-streamiasia
-  myfile.open("CritterLog.txt", ios::app);   // logataan kuulumisia kuten sijaintia
+  ofstream myfile;                                              // out-file-stream thing
+  myfile.open("CritterLog.txt", ios::app);                      // log location + births
   myfile << "I'm born! Rgb ";
   myfile << std::setfill(' ') << std::setw(3) << RGBgenome_.r << ' ' << std::setw(3) << RGBgenome_.g << ' ' << std::setw(3) << RGBgenome_.b ;
   myfile << ", xy " << std::setw(3) << whereTo.x << " " << std::setw(3) << whereTo.y << std::endl;
   myfile.close();
 }
 
-void Critter::horny() { // muututaan keltaiseksi (Otuksien syntyvärit on kirjoittaessani punasävyisiä)
+void Critter::horny() {                                         // yellow
   RGBfenotype.r = 255, RGBfenotype.g = 255, RGBfenotype.b = 0;
 }
 
-void Critter::freak() { // muututaan siniseksi (Otuksien syntyvärit on kirjoittaessani punasävyisiä)
+void Critter::freak() {                                         // blue
   RGBfenotype.r = 0, RGBfenotype.g = 0, RGBfenotype.b = 255;
 }
 
-void Critter::relax() {  // fenotyypin implementaatiota
-  if (RGBfenotype.r!=RGBgenome.r)
-    RGBfenotype.r = towardsOwnColor(RGBfenotype.r, RGBgenome.r);
-  if (RGBfenotype.g!=RGBgenome.g)
-    RGBfenotype.g = towardsOwnColor(RGBfenotype.g, RGBgenome.g);
-  if (RGBfenotype.b!=RGBgenome.b)
-    RGBfenotype.b = towardsOwnColor(RGBfenotype.b, RGBgenome.b);
+void Critter::rot() {                                           // black
+  RGBfenotype.r = 255, RGBfenotype.g = 255, RGBfenotype.b = 255;
 }
 
-int Critter::towardsOwnColor(int colorNow, int normalColor) {  // fenotyypin implementaatiota
-  int returnStep = 25;
-  if (abs(colorNow - normalColor)<GRAPH_ACCURACY || abs(colorNow - normalColor)<returnStep)
+void Critter::relax() {
+  if (!MORTALITY == true || isAlive == true) {                  // should I take a step towards own color?
+    if (RGBfenotype.r!=RGBgenome.r)
+      RGBfenotype.r = towardsOwnColor(RGBfenotype.r, RGBgenome.r);
+    if (RGBfenotype.g!=RGBgenome.g)
+      RGBfenotype.g = towardsOwnColor(RGBfenotype.g, RGBgenome.g);
+    if (RGBfenotype.b!=RGBgenome.b)
+      RGBfenotype.b = towardsOwnColor(RGBfenotype.b, RGBgenome.b);
+  }
+}
+
+int Critter::towardsOwnColor(int colorNow, int normalColor) {   // calculating the step
+  if (abs(colorNow - normalColor)<COLOR_ACCURACY || abs(colorNow - normalColor)<RETURN_STEP)
     return normalColor;
   else {
     if(colorNow<normalColor)
-      return colorNow += returnStep;
-    else
-      return colorNow -= returnStep;
+      return colorNow += RETURN_STEP;
+    else {
+      return colorNow -= RETURN_STEP;
+    }
   }
+  throw "Nevermore! if-else was supposed to cover all cases in Critter::towardsOwnColor()"; // above if/else should always return a number.
+  return 0;                                                     // remove if throw's removed.
 }
 
 
