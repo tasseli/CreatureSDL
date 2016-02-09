@@ -3,15 +3,17 @@
 using namespace std;
 
 bool loopProgram() {
-  // Logi, SDL init
+  // Logi
   ofstream myfile;                // out-file-streamiasia
   myfile.open("otuslogi.txt");   // logataan kuulumisia kuten sijaintia
   srand(time(0));                 // rand():in seedaus erolla nollakellonlyömään
-  SDL_Surface *petrimalja = NULL;            // SDL:n käyttöä, jota en tarkemmin ymmärrä
+
+  // SDL init
+  SDL_Surface *petrimalja = NULL;
   SDL_Event event;
   int keypress = 0;
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0) return 1;
-  if (!(petrimalja = SDL_SetVideoMode(WIDTH, HEIGHT, DEPTH, SDL_SWSURFACE))) {   //Asetettu Critter.h:ssa - mut mitähän: SDL_FULLSCREEN| tekee. Ahaa. Flagit tulee |:illa eroteltuina vikaks.
+  if (!(petrimalja = SDL_SetVideoMode(WIDTH, HEIGHT, DEPTH, SDL_SWSURFACE))) {   //Asetettu Critter.h:ssa
     SDL_Quit();
     return 1;
   }
