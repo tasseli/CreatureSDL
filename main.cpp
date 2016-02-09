@@ -41,7 +41,6 @@ int main(int argc, char* argv[]) {
 
   // Otuksien alkusynty
   World maailma(WIDTH,HEIGHT);
-  maailma.doInitialBirths();
 
   drawBackground(petrimalja);
   if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
@@ -68,10 +67,7 @@ int main(int argc, char* argv[]) {
           break;
         }
       }
-      maailma.doMoves();
-      maailma.doCopulations();
-//      drawCritters(petrimalja, maailma);
-      maailma.doColorChanges(colorCounter);
+      maailma.step(colorCounter);
     }
   }
 //  myfile << "while päättyi" << endl;

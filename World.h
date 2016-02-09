@@ -34,6 +34,8 @@ public:
     Critter* feelAround(Critter* feeler);
     void copulate(Critter* mother);
 
+    void step(int colorCounter);
+
     vector<vector<Critter*> > creatures;      // sis‰lt‰‰ pointterit kaikkiin Worldn Otuksiin (st‰ckiss‰). Solu t‰ynn‰ tai NULL.
     vector<Critter*> creaturesByBirth;        // pointterit samoihin luomisj‰rjestyksess‰.
     vector<coordinates> creaturesJustMoved;   // TODO: I feel bad for doing this

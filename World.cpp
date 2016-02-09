@@ -10,6 +10,8 @@ World::World(int width, int height) {
       creatures.back().push_back(NULL);
     }
   }
+  doInitialBirths();
+
 }
 
 bool World::createCritter(Critter* mother, Critter* father) {   // use parents' colors evenly
@@ -197,6 +199,12 @@ void World::copulate(Critter* mommy) {
       mommy->waitSex += WAIT_AFTER;
     }
   }
+}
+
+void World::step(int colorCounter) {
+  doMoves();
+  doCopulations();
+  doColorChanges(colorCounter);
 }
 
 /*
