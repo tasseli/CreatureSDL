@@ -13,7 +13,7 @@ const short WAIT_AFTER      = 130   ;   // montako askelta otuksen on otettava p
 const short RETURN_STEP     = 25    ;
 const bool  MORTALITY       = false  ;   // tarviiko hengitt‰‰
 const short BREATHING_SPACE_NEEDED  = 6;
-const bool  CLEAN_AFTER_MOVE        = false;
+const bool  CLEAN_AFTER_MOVE        = true;
 
 
 struct coordinates {

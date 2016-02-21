@@ -29,8 +29,8 @@ bool loopProgram() {
   while(!keypress) {  // Vars. looppi kunnes keskeytet‰‰n napilla
     for( int colorCounter = 0; colorCounter<10; ++colorCounter) { // hoidetaan relax()it joka 10. ticki
       drawEmptied(petrimalja, maailma);
-      if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
-      SDL_Flip(petrimalja);
+//      if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
+//      SDL_Flip(petrimalja);
 
       drawCritters(petrimalja, maailma);
       if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);

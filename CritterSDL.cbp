@@ -12,8 +12,14 @@
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
 				</Compiler>
+				<Linker>
+					<Add library="T:\Program Files\CodeBlocks\MinGW\lib\libSDL.dll.a" />
+					<Add library="T:\Program Files\CodeBlocks\MinGW\lib\libSDLmain.a" />
+					<Add library="T:\Program Files\CodeBlocks\MinGW\lib\libmingw32.a" />
+				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/SoluGrafiikalla" prefix_auto="1" extension_auto="1" />
@@ -22,6 +28,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=c++11" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -51,6 +58,8 @@
 		<Unit filename="const.h" />
 		<Unit filename="graphics.cpp" />
 		<Unit filename="graphics.h" />
+		<Unit filename="loopProgram.cpp" />
+		<Unit filename="loopProgram.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
