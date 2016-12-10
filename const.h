@@ -6,7 +6,7 @@ const short BPP             = 4     ;
 const short DEPTH           = 32    ;
 const short COLOR_ACCURACY  = 5     ;   // kuinka suurta eroa alkuper‰isen v‰rin poikkeamasta kunnioitetaan
 
-const short MAX_CREATURES   = 2000 ;
+const short MAX_CREATURES   = 120 ;
 const short INIT_CREATURES  = 10    ;
 const short WAIT_FIRST      = 150   ;   // mink‰ verran otukset on lis‰‰ntym‰tt‰ demon aluksi
 const short WAIT_AFTER      = 130   ;   // montako askelta otuksen on otettava palautuakseen, ennen kuin jaksaa taas lis‰‰nty‰
