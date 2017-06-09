@@ -13,7 +13,11 @@ bool loopProgram() {
   SDL_Event event;
   int keypress = 0;
   if (SDL_Init(SDL_INIT_EVERYTHING) < 0) return 1;
-  if (!(petrimalja = SDL_SetVideoMode(WIDTH, HEIGHT, DEPTH, SDL_SWSURFACE))) {   //Asetettu Critter.h:ssa
+  if (!(petrimalja = SDL_CreateWindow("My Game Window",
+                                      SDL_WINDOWPOS_UNDEFINED,
+                                      SDL_WINDOWPOS_UNDEFINED,
+                                      WIDTH, HEIGHT,
+                                      SDL_SWSURFACE))) {   //Asetettu Critter.h:ssa
     SDL_Quit();
     return 1;
   }
@@ -23,7 +27,7 @@ bool loopProgram() {
 
   drawBackground(petrimalja);
   if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
-  SDL_Flip(petrimalja);
+  //SDL_RenderPresent(petrimalja);
 
 
   while(!keypress) {  // Vars. looppi kunnes keskeytetään napilla
@@ -34,7 +38,7 @@ bool loopProgram() {
 
       drawCritters(petrimalja, maailma);
       if(SDL_MUSTLOCK(petrimalja)) SDL_UnlockSurface(petrimalja);
-      SDL_Flip(petrimalja);
+      SDL_RenderPresent(petrimalja);
 
       while(SDL_PollEvent(&event)) { // jos 1 painettu, loppu
         switch (event.type) {

@@ -3,7 +3,7 @@
 class Critter;
 
 #include <vector>
-#include "SDL/SDL.h"
+#include "C:/SDL2-2.0.4/include/SDL.h"                                // show easy graphics
 #include "World.h"
 #include "Critter.h"
 #include "const.h"

@@ -1,8 +1,9 @@
 #pragma once
 
-#include "SDL/SDL.h"                                // show easy graphics
+#include "C:/SDL2-2.0.4/include/SDL.h"                                // show easy graphics
 #include <vector>
 #include <cstddef>
+#include <cstdlib>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
